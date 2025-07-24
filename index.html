@@ -214,8 +214,9 @@
     </div>
     
     <footer class="w-full bg-gray-100 mt-12 py-4">
-        <div class="container mx-auto text-center text-sm text-gray-500">
-            <p>&copy; 2024 Navnegenerator</p>
+        <div class="container mx-auto text-center text-sm text-gray-500 space-x-4">
+            <span>&copy; 2024 Navnegenerator</span>
+            <a href="#" id="privacy-policy-link" class="underline hover:text-gray-800">Privatlivspolitik</a>
         </div>
     </footer>
 
@@ -240,6 +241,7 @@
                     mainTitle: "AI Navnegenerator",
                     subtitle: "Find det perfekte og meningsfulde navn til dit barn.",
                     howItWorksButton: "Hvordan virker det?",
+                    privacyPolicyLink: "Privatlivspolitik",
                     labelGender: "Barnets Køn",
                     genderBoy: "Dreng",
                     genderGirl: "Pige",
@@ -304,12 +306,25 @@
                             <p><strong>Moderne:</strong> Navne, der er blevet populære i de seneste årtier (f.eks. Luna, Noah).</p>
                             <p><strong>Klassisk:</strong> Populære navne fra midten af det 20. århundrede (f.eks. Hanne, Lars).</p>
                             <p><strong>Gammeldags:</strong> Traditionelle navne fra før 1950 med en nostalgisk klang (f.eks. Gerda, Aksel).</p>
-                        </div>`
+                        </div>`,
+                    privacyTitle: "Privatlivspolitik",
+                    privacyContent: `
+                        <h4 class="font-semibold text-lg mb-2">Dit privatliv er vigtigt</h4>
+                        <p>Vi gemmer ingen af de oplysninger, du indtaster i formularen på denne side. Alle data (såsom navne, datoer og andre valg) bruges udelukkende til at generere navneforslag i det øjeblik, du klikker på knappen.</p>
+                        <p>Når du forlader eller opdaterer siden, er alle indtastede oplysninger væk. Vi har ingen database og sporer ikke dine valg.</p>
+                        <hr class="my-4">
+                        <h4 class="font-semibold text-lg mb-2">Tredjepartstjenester</h4>
+                        <p>Vi bruger tredjepartstjenester, som har deres egne privatlivspolitikker:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Google AdSense:</strong> Viser annoncer på siden. Google kan bruge cookies til at vise dig relevante annoncer. Du kan læse mere i <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Googles annoncepolitik</a>.</li>
+                            <li><strong>AI Service:</strong> De anonymiserede oplysninger fra formularen sendes til en AI-tjeneste for at generere navne. Disse data bruges ikke til at identificere dig.</li>
+                        </ul>`
                 },
                 en: {
                     mainTitle: "AI Name Generator",
                     subtitle: "Find the perfect and meaningful name for your child.",
                     howItWorksButton: "How does it work?",
+                    privacyPolicyLink: "Privacy Policy",
                     labelGender: "Child's Gender",
                     genderBoy: "Boy",
                     genderGirl: "Girl",
@@ -374,12 +389,25 @@
                             <p><strong>Modern:</strong> Names that have become popular in recent decades (e.g., Luna, Noah).</p>
                             <p><strong>Classic:</strong> Popular names from the mid-20th century (e.g., Susan, Michael).</p>
                             <p><strong>Old-fashioned:</strong> Traditional names from before 1950 with a nostalgic sound (e.g., Dorothy, Arthur).</p>
-                        </div>`
+                        </div>`,
+                    privacyTitle: "Privacy Policy",
+                    privacyContent: `
+                        <h4 class="font-semibold text-lg mb-2">Your Privacy is Important</h4>
+                        <p>We do not save any of the information you enter in the form on this page. All data (such as names, dates, and other choices) is used solely to generate name suggestions the moment you click the button.</p>
+                        <p>When you leave or refresh the page, all entered information is gone. We do not have a database and do not track your choices.</p>
+                        <hr class="my-4">
+                        <h4 class="font-semibold text-lg mb-2">Third-Party Services</h4>
+                        <p>We use third-party services that have their own privacy policies:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Google AdSense:</strong> Displays ads on the site. Google may use cookies to show you relevant ads. You can read more in <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Google's Ad Policy</a>.</li>
+                            <li><strong>AI Service:</strong> The anonymized information from the form is sent to an AI service to generate names. This data is not used to identify you.</li>
+                        </ul>`
                 },
                 de: {
                     mainTitle: "KI-Namensgenerator",
                     subtitle: "Finden Sie den perfekten und bedeutungsvollen Namen für Ihr Kind.",
                     howItWorksButton: "Wie funktioniert es?",
+                    privacyPolicyLink: "Datenschutz",
                     labelGender: "Geschlecht des Kindes",
                     genderBoy: "Junge",
                     genderGirl: "Mädchen",
@@ -444,12 +472,25 @@
                             <p><strong>Modern:</strong> Namen, die in den letzten Jahrzehnten populär geworden sind (z. B. Luna, Noah).</p>
                             <p><strong>Klassisch:</strong> Beliebte Namen aus der Mitte des 20. Jahrhunderts (z. B. Sabine, Michael).</p>
                             <p><strong>Altmodisch:</strong> Traditionelle Namen aus der Zeit vor 1950 mit nostalgischem Klang (z. B. Gerda, Arthur).</p>
-                        </div>`
+                        </div>`,
+                    privacyTitle: "Datenschutzrichtlinie",
+                    privacyContent: `
+                        <h4 class="font-semibold text-lg mb-2">Ihre Privatsphäre ist wichtig</h4>
+                        <p>Wir speichern keine der Informationen, die Sie in das Formular auf dieser Seite eingeben. Alle Daten (wie Namen, Daten und andere Auswahlmöglichkeiten) werden ausschließlich dazu verwendet, Namensvorschläge zu generieren, sobald Sie auf die Schaltfläche klicken.</p>
+                        <p>Wenn Sie die Seite verlassen oder aktualisieren, sind alle eingegebenen Informationen verschwunden. Wir führen keine Datenbank und verfolgen Ihre Auswahl nicht.</p>
+                        <hr class="my-4">
+                        <h4 class="font-semibold text-lg mb-2">Drittanbieterdienste</h4>
+                        <p>Wir nutzen Drittanbieterdienste, die ihre eigenen Datenschutzrichtlinien haben:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Google AdSense:</strong> Zeigt Anzeigen auf der Website an. Google kann Cookies verwenden, um Ihnen relevante Anzeigen zu zeigen. Mehr dazu erfahren Sie in der <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Anzeigenrichtlinie von Google</a>.</li>
+                            <li><strong>KI-Dienst:</strong> Die anonymisierten Informationen aus dem Formular werden an einen KI-Dienst gesendet, um Namen zu generieren. Diese Daten werden nicht zur Identifizierung Ihrer Person verwendet.</li>
+                        </ul>`
                 },
                 es: {
                     mainTitle: "Generador de Nombres con IA",
                     subtitle: "Encuentra el nombre perfecto y significativo para tu hijo.",
                     howItWorksButton: "¿Cómo funciona?",
+                    privacyPolicyLink: "Política de Privacidad",
                     labelGender: "Género del bebé",
                     genderBoy: "Niño",
                     genderGirl: "Niña",
@@ -514,7 +555,19 @@
                             <p><strong>Moderno:</strong> Nombres que se han vuelto populares en las últimas décadas (p. ej., Luna, Noah).</p>
                             <p><strong>Clásico:</strong> Nombres populares de mediados del siglo XX (p. ej., Susana, Miguel).</p>
                             <p><strong>Antiguo:</strong> Nombres tradicionales de antes de 1950 con un sonido nostálgico (p. ej., Carmen, Arturo).</p>
-                        </div>`
+                        </div>`,
+                    privacyTitle: "Política de Privacidad",
+                    privacyContent: `
+                        <h4 class="font-semibold text-lg mb-2">Tu Privacidad es Importante</h4>
+                        <p>No guardamos ninguna de la información que introduces en el formulario de esta página. Todos los datos (como nombres, fechas y otras opciones) se utilizan únicamente para generar sugerencias de nombres en el momento en que haces clic en el botón.</p>
+                        <p>Cuando sales o actualizas la página, toda la información introducida desaparece. No tenemos una base de datos y no rastreamos tus elecciones.</p>
+                        <hr class="my-4">
+                        <h4 class="font-semibold text-lg mb-2">Servicios de Terceros</h4>
+                        <p>Utilizamos servicios de terceros que tienen sus propias políticas de privacidad:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Google AdSense:</strong> Muestra anuncios en el sitio. Google puede usar cookies para mostrarte anuncios relevantes. Puedes leer más en la <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Política de Anuncios de Google</a>.</li>
+                            <li><strong>Servicio de IA:</strong> La información anonimizada del formulario se envía a un servicio de IA para generar nombres. Estos datos no se utilizan para identificarte.</li>
+                        </ul>`
                 }
             };
 
@@ -532,6 +585,7 @@
             const modalBody = document.getElementById('modal-body');
             const modalCloseButton = document.getElementById('modal-close-button');
             const howItWorksButton = document.getElementById('how-it-works-button');
+            const privacyPolicyLink = document.getElementById('privacy-policy-link');
 
 
             let currentLang = 'da';
@@ -544,6 +598,7 @@
                 document.getElementById('main-title').textContent = t.mainTitle;
                 document.getElementById('subtitle').textContent = t.subtitle;
                 document.getElementById('how-it-works-button').textContent = t.howItWorksButton;
+                document.getElementById('privacy-policy-link').textContent = t.privacyPolicyLink;
                 document.getElementById('label-gender').textContent = t.labelGender;
                 document.getElementById('gender-boy').textContent = t.genderBoy;
                 document.getElementById('gender-girl').textContent = t.genderGirl;
@@ -727,10 +782,15 @@
             }
 
             // Modal Logic
-            function showModal() {
+            function showModal(type) {
                 const t = translations[currentLang];
-                modalTitle.textContent = t.helpTitle;
-                modalBody.innerHTML = t.helpContent;
+                if (type === 'how-it-works') {
+                    modalTitle.textContent = t.helpTitle;
+                    modalBody.innerHTML = t.helpContent;
+                } else if (type === 'privacy') {
+                    modalTitle.textContent = t.privacyTitle;
+                    modalBody.innerHTML = t.privacyContent;
+                }
                 
                 helpModal.classList.remove('hidden');
                 setTimeout(() => {
@@ -747,7 +807,14 @@
                 }, 250);
             }
 
-            howItWorksButton.addEventListener('click', showModal);
+            howItWorksButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                showModal('how-it-works');
+            });
+            privacyPolicyLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showModal('privacy');
+            });
             modalCloseButton.addEventListener('click', hideModal);
             helpModal.addEventListener('click', (e) => {
                 if (e.target === helpModal) {
@@ -759,5 +826,8 @@
             updateLanguage('da');
         });
     </script>
+</body>
+</html>
+
 </body>
 </html>
