@@ -454,7 +454,7 @@
                 // The payload is now just the prompt text, as the backend will handle the full API request.
                 const payload = { prompt: prompt };
                 
-                const apiUrl = "http://localhost:3000/api/generate";
+                const apiUrl = "https://min-ai-backend.onrender.com/api/generate";
                 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
