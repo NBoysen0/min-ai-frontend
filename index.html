@@ -7,20 +7,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250830039433254"
      crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            transition: background-image 0.5s ease-in-out;
         }
         h1, .font-display {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Pacifico', cursive;
         }
         .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
+            border: 5px solid #f0f0f0;
+            border-top: 5px solid #60A5FA; /* Pastel Blue */
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -33,24 +34,15 @@
         }
         .card {
             background-color: white;
-            border-radius: 12px;
+            border-radius: 24px;
             padding: 24px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #f3f4f6;
         }
         .card:hover {
-            transform: translateY(-5px);
-        }
-        .adsense-placeholder {
-            min-height: 100px;
-            background-color: #f7fafc;
-            border: 2px dashed #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #a0aec0;
-            margin: 2rem 0;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         .modal {
             transition: opacity 0.25s ease;
@@ -58,39 +50,64 @@
         .modal-content {
             transition: transform 0.25s ease;
         }
+        .main-container {
+             background-color: rgba(255, 255, 255, 0.8);
+             backdrop-filter: blur(10px);
+             border-radius: 24px;
+             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+             border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+        .cloud {
+            position: absolute;
+            opacity: 0.2;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-20px) translateX(10px); }
+            100% { transform: translateY(0px) translateX(0px); }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+<body class="text-gray-700 flex flex-col min-h-screen">
+    
+    <!-- Decorative clouds -->
+    <svg class="cloud" style="top: 10%; left: 5%; width: 150px; animation-duration: 25s;" viewBox="0 0 100 60" fill="#a7d7f9"><path d="M83.4,23.3c-0.2-11.3-9.4-20.4-20.7-20.2C53.4,3.3,45.4,10,43.2,19.3c-2.8-3.4-7.2-5.5-12.1-5.5c-8.3,0-15.1,6.8-15.1,15.1 c0,0.9,0.1,1.8,0.3,2.6C6.9,32.4,0,40.3,0,49.4C0,55.3,4.7,60,10.5,60h79c5.8,0,10.5-4.7,10.5-10.5 C100,42.1,92.9,34.1,83.4,23.3z"></path></svg>
+    <svg class="cloud" style="top: 20%; right: 10%; width: 100px; animation-duration: 30s; animation-delay: -5s;" viewBox="0 0 100 60" fill="#a7d7f9"><path d="M83.4,23.3c-0.2-11.3-9.4-20.4-20.7-20.2C53.4,3.3,45.4,10,43.2,19.3c-2.8-3.4-7.2-5.5-12.1-5.5c-8.3,0-15.1,6.8-15.1,15.1 c0,0.9,0.1,1.8,0.3,2.6C6.9,32.4,0,40.3,0,49.4C0,55.3,4.7,60,10.5,60h79c5.8,0,10.5-4.7,10.5-10.5 C100,42.1,92.9,34.1,83.4,23.3z"></path></svg>
+    <svg class="cloud" style="bottom: 10%; left: 15%; width: 120px; animation-duration: 20s; animation-delay: -10s;" viewBox="0 0 100 60" fill="#a7d7f9"><path d="M83.4,23.3c-0.2-11.3-9.4-20.4-20.7-20.2C53.4,3.3,45.4,10,43.2,19.3c-2.8-3.4-7.2-5.5-12.1-5.5c-8.3,0-15.1,6.8-15.1,15.1 c0,0.9,0.1,1.8,0.3,2.6C6.9,32.4,0,40.3,0,49.4C0,55.3,4.7,60,10.5,60h79c5.8,0,10.5-4.7,10.5-10.5 C100,42.1,92.9,34.1,83.4,23.3z"></path></svg>
 
     <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl flex-grow">
-        <header class="text-center mb-8 relative">
+        <header class="text-center mb-8 relative pt-8">
              <div class="absolute top-0 right-0">
                 <label for="language-select" class="sr-only">Vælg sprog</label>
-                <select id="language-select" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <select id="language-select" class="rounded-lg border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                     <option value="da">Dansk</option>
                     <option value="en">English</option>
                     <option value="de">Deutsch</option>
                     <option value="es">Español</option>
                 </select>
             </div>
-            <h1 id="main-title" class="text-4xl md:text-5xl font-bold text-gray-900">AI Navnegenerator</h1>
-            <p id="subtitle" class="mt-2 text-lg text-gray-600">Find det perfekte og meningsfulde navn til dit barn.</p>
-            <button id="how-it-works-button" class="mt-4 text-indigo-600 underline hover:text-indigo-800 text-sm">Hvordan virker det?</button>
+            <h1 id="main-title" class="text-5xl md:text-6xl font-display text-sky-800">Navne-Magikeren</h1>
+            <p id="subtitle" class="mt-6 text-lg text-sky-700">Find det perfekte og meningsfulde navn til dit barn.</p>
+            <button id="how-it-works-button" class="mt-4 text-sky-600 underline hover:text-sky-800 text-sm">Hvordan virker det?</button>
         </header>
         
         <!-- Top banner -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-2250830039433254"
-             data-ad-slot="5125922255"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <div class="my-8">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2250830039433254"
+                 data-ad-slot="5125922255"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
         <main>
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg mt-8">
+            <div class="main-container p-6 md:p-8">
                 <form id="name-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Gender Selection -->
@@ -98,15 +115,15 @@
                             <label id="label-gender" class="block text-sm font-medium text-gray-700 mb-2">Barnets Køn</label>
                             <div class="flex items-center space-x-4">
                                 <label class="flex items-center">
-                                    <input type="radio" name="gender" value="Dreng" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500" checked>
+                                    <input type="radio" name="gender" value="Dreng" class="h-4 w-4 text-blue-500 border-gray-300 focus:ring-blue-400" checked>
                                     <span id="gender-boy" class="ml-2 text-gray-700">Dreng</span>
                                 </label>
                                 <label class="flex items-center">
-                                    <input type="radio" name="gender" value="Pige" class="h-4 w-4 text-pink-600 border-gray-300 focus:ring-pink-500">
+                                    <input type="radio" name="gender" value="Pige" class="h-4 w-4 text-pink-500 border-gray-300 focus:ring-pink-400">
                                     <span id="gender-girl" class="ml-2 text-gray-700">Pige</span>
                                 </label>
                                 <label class="flex items-center">
-                                    <input type="radio" name="gender" value="Kønsneutral" class="h-4 w-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+                                    <input type="radio" name="gender" value="Kønsneutral" class="h-4 w-4 text-purple-500 border-gray-300 focus:ring-purple-400">
                                     <span id="gender-neutral" class="ml-2 text-gray-700">Neutral</span>
                                 </label>
                             </div>
@@ -115,39 +132,39 @@
                         <!-- Date of Birth (Optional) -->
                         <div>
                             <label id="label-dob" for="dob" class="block text-sm font-medium text-gray-700">Fødselsdato (valgfri)</label>
-                            <input type="date" id="dob" name="dob" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            <input type="date" id="dob" name="dob" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2">
                         </div>
 
                         <!-- Parents' Names (Optional) -->
                         <div>
                             <label id="label-parent1" for="parent1" class="block text-sm font-medium text-gray-700">Forælder 1's Navn (valgfri)</label>
-                            <input type="text" id="parent1" name="parent1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            <input type="text" id="parent1" name="parent1" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2">
                         </div>
                         <div>
                             <label id="label-parent2" for="parent2" class="block text-sm font-medium text-gray-700">Forælder 2's Navn (valgfri)</label>
-                            <input type="text" id="parent2" name="parent2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            <input type="text" id="parent2" name="parent2" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2">
                         </div>
                         
                         <!-- Middle and Last Name (Optional) -->
                         <div>
                             <label id="label-middlename" for="middlename" class="block text-sm font-medium text-gray-700">Ønsket Mellemnavn (valgfri)</label>
-                            <input type="text" id="middlename" name="middlename" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            <input type="text" id="middlename" name="middlename" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2">
                         </div>
                         <div>
                             <label id="label-lastname" for="lastname" class="block text-sm font-medium text-gray-700">Ønsket Efternavn (valgfri)</label>
-                            <input type="text" id="lastname" name="lastname" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            <input type="text" id="lastname" name="lastname" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2">
                         </div>
 
                         <!-- Nationality (Optional) -->
                         <div>
                             <label id="label-nationality" for="nationality" class="block text-sm font-medium text-gray-700">Nationalitet (valgfri)</label>
-                            <input type="text" id="nationality" name="nationality" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            <input type="text" id="nationality" name="nationality" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2">
                         </div>
 
                         <!-- AI Method -->
                         <div>
                             <label id="label-method" for="method" class="block text-sm font-medium text-gray-700">Vælg en kreativ metode</label>
-                            <select id="method" name="method" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            <select id="method" name="method" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2">
                                 <!-- Options will be populated by JS -->
                             </select>
                         </div>
@@ -155,7 +172,7 @@
                         <!-- Name Style/Era -->
                         <div class="md:col-span-1">
                             <label id="label-name-style" for="name-style" class="block text-sm font-medium text-gray-700">Navnestil / Tidsperiode</label>
-                            <select id="name-style" name="name-style" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            <select id="name-style" name="name-style" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2">
                                 <!-- Options will be populated by JS -->
                             </select>
                         </div>
@@ -163,18 +180,18 @@
                         <!-- Generate Middle Name Checkbox -->
                         <div class="flex items-center justify-self-start">
                             <label class="flex items-center mt-4">
-                                <input type="checkbox" id="generate-middlename" name="generate-middlename" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                <input type="checkbox" id="generate-middlename" name="generate-middlename" class="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500">
                                 <span id="label-generate-middlename" class="ml-2 text-sm font-medium text-gray-700">Generer også et mellemnavn</span>
                             </label>
                         </div>
                     </div>
 
                     <div class="mt-8 text-center">
-                        <button type="submit" id="generate-button" class="w-full md:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform transform hover:scale-105">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        <button type="submit" id="generate-button" class="w-full md:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-transform transform hover:scale-105">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                             </svg>
-                            <span id="generate-button-text">Generer Navneforslag</span>
+                            <span id="generate-button-text">Find Navne</span>
                         </button>
                     </div>
                 </form>
@@ -188,11 +205,11 @@
                     <!-- AI-generated names will be appended here -->
                 </div>
                 <div id="regenerate-container" class="mt-8 text-center hidden">
-                     <button id="regenerate-button" class="w-full md:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-transform transform hover:scale-105">
+                     <button id="regenerate-button" class="w-full md:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-transform transform hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 110 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
                         </svg>
-                        <span id="regenerate-button-text">Generer Nye Forslag</span>
+                        <span id="regenerate-button-text">Prøv Igen</span>
                     </button>
                 </div>
             </div>
@@ -213,7 +230,7 @@
         </main>
     </div>
     
-    <footer class="w-full bg-gray-100 mt-12 py-4">
+    <footer class="w-full bg-white/50 mt-12 py-4">
         <div class="container mx-auto text-center text-sm text-gray-500 space-x-4">
             <span>&copy; 2024 Navnegenerator</span>
             <a href="#" id="privacy-policy-link" class="underline hover:text-gray-800">Privatlivspolitik</a>
@@ -235,226 +252,225 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const translations = {
-                da: {
-                    mainTitle: "AI Navnegenerator",
-                    subtitle: "Find det perfekte og meningsfulde navn til dit barn.",
-                    howItWorksButton: "Hvordan virker det?",
-                    privacyPolicyLink: "Privatlivspolitik",
-                    labelGender: "Barnets Køn",
-                    genderBoy: "Dreng",
-                    genderGirl: "Pige",
-                    genderNeutral: "Neutral",
-                    labelDob: "Fødselsdato (valgfri)",
-                    labelParent1: "Forælder 1's Navn (valgfri)",
-                    parent1Placeholder: "Fx 'Anne'",
-                    labelParent2: "Forælder 2's Navn (valgfri)",
-                    parent2Placeholder: "Fx 'Jens'",
-                    labelMiddlename: "Ønsket Mellemnavn (valgfri)",
-                    middlenamePlaceholder: "Fx 'Holm'",
-                    labelLastname: "Ønsket Efternavn (valgfri)",
-                    lastnamePlaceholder: "Fx 'Nielsen'",
-                    labelNationality: "Nationalitet (valgfri)",
-                    nationalityPlaceholder: "Fx 'Dansk', 'Skandinavisk'",
-                    labelMethod: "Vælg en kreativ metode",
-                    methodOptions: {
-                        "En blanding af alle metoder": "Kreativ blanding",
-                        "Astrologi (baseret på stjernetegn)": "Astrologi",
-                        "Numerologi (baseret på tal og navne)": "Numerologi",
-                        "Historisk og mytologisk betydning": "Historisk & Mytologisk",
-                        "Naturinspiration (blomster, træer, steder)": "Naturinspiration"
-                    },
-                    labelNameStyle: "Navnestil / Tidsperiode",
-                    nameStyleOptions: {
-                        "Tidløst": "Tidløst",
-                        "Moderne (efter 2000)": "Moderne",
-                        "Klassisk (1950-1990)": "Klassisk",
-                        "Gammeldags (før 1950)": "Gammeldags"
-                    },
-                    labelGenerateMiddlename: "Generer også et mellemnavn",
-                    generateButtonText: "Generer Navneforslag",
-                    regenerateButtonText: "Generer Nye Forslag",
-                    originMeaningLabel: "Oprindelse & Betydning (Fornavn)",
-                    personalJustificationLabel: "Personlig Begrundelse",
-                    apiError: "Kunne ikke generere navne. Prøv venligst igen.",
-                    noResultsError: "AI'en kunne desværre ikke finde nogle navne baseret på dine valg. Prøv at justere dine input.",
-                    helpTitle: "Sådan bruges Navnegeneratoren",
-                    helpContent: `
-                        <h4 class="font-semibold text-lg mb-2">Hvad betyder de forskellige valg?</h4>
-                        <p class="mb-4">Jo mere information du giver AI'en, jo mere personlige og unikke navneforslag kan den generere. Her er en guide til, hvordan hvert felt bruges:</p>
-                        <div class="space-y-3">
-                            <p><strong>Barnets Køn:</strong> Det mest grundlæggende valg. Bestemmer om AI'en skal finde drenge-, pige- eller kønsneutrale navne.</p>
-                            <p><strong>Fødselsdato:</strong> Bruges især i <strong>Astrologi</strong>-metoden til at finde barnets stjernetegn. Kan også inspirere til navne baseret på årstiden.</p>
-                            <p><strong>Forældres Navne:</strong> AI'en leder efter en rød tråd. Den kan finde navne med samme oprindelse, lyd eller kulturelle baggrund som forældrenes navne.</p>
-                            <p><strong>Efternavn:</strong> Bruges til at sikre, at fornavnet klinger godt sammen med efternavnet og undgå kombinationer, der er svære at udtale.</p>
-                            <p><strong>Nationalitet:</strong> Guider AI'en til at finde navne, der er populære eller har rødder i den angivne kultur eller region.</p>
-                        </div>
-                        <hr class="my-4">
-                        <h4 class="font-semibold text-lg mb-2">Kreative Metoder</h4>
-                        <div class="space-y-3">
-                            <p><strong>Kreativ blanding:</strong> Lader AI'en frit kombinere alle metoder for de mest uventede og unikke forslag.</p>
-                            <p><strong>Astrologi:</strong> Finder navne, der matcher de personlighedstræk, der er forbundet med barnets stjernetegn.</p>
-                            <p><strong>Numerologi:</strong> Analyserer talværdien i navne for at finde forslag, der harmonerer energimæssigt.</p>
-                            <p><strong>Historisk & Mytologisk:</strong> Henter inspiration fra historiske figurer, guder og helte.</p>
-                            <p><strong>Naturinspiration:</strong> Foreslår navne baseret på elementer fra naturen.</p>
-                        </div>
-                        <hr class="my-4">
-                        <h4 class="font-semibold text-lg mb-2">Navnestile</h4>
-                        <div class="space-y-3">
-                            <p><strong>Tidløst:</strong> Klassiske navne, der aldrig går af mode (f.eks. Anna, Peter).</p>
-                            <p><strong>Moderne:</strong> Navne, der er blevet populære i de seneste årtier (f.eks. Luna, Noah).</p>
-                            <p><strong>Klassisk:</strong> Populære navne fra midten af det 20. århundrede (f.eks. Hanne, Lars).</p>
-                            <p><strong>Gammeldags:</strong> Traditionelle navne fra før 1950 med en nostalgisk klang (f.eks. Gerda, Aksel).</p>
-                        </div>`,
-                    privacyTitle: "Privatlivspolitik",
-                    privacyContent: `
-                        <h4 class="font-semibold text-lg mb-2">Dit privatliv er vigtigt</h4>
-                        <p>Vi gemmer ingen af de oplysninger, du indtaster i formularen på denne side. Alle data (såsom navne, datoer og andre valg) bruges udelukkende til at generere navneforslag i det øjeblik, du klikker på knappen.</p>
-                        <p>Når du forlader eller opdaterer siden, er alle indtastede oplysninger væk. Vi har ingen database og sporer ikke dine valg.</p>
-                        <hr class="my-4">
-                        <h4 class="font-semibold text-lg mb-2">Tredjepartstjenester</h4>
-                        <p>Vi bruger tredjepartstjenester, som har deres egne privatlivspolitikker:</p>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li><strong>Google AdSense:</strong> Viser annoncer på siden. Google kan bruge cookies til at vise dig relevante annoncer. Du kan læse mere i <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Googles annoncepolitik</a>.</li>
-                            <li><strong>AI Service:</strong> De anonymiserede oplysninger fra formularen sendes til en AI-tjeneste for at generere navne. Disse data bruges ikke til at identificere dig.</li>
-                        </ul>`
+        const translations = {
+            da: {
+                mainTitle: "Navne-Magikeren",
+                subtitle: "Find det perfekte og meningsfulde navn til dit barn.",
+                howItWorksButton: "Hvordan virker det?",
+                privacyPolicyLink: "Privatlivspolitik",
+                labelGender: "Barnets Køn",
+                genderBoy: "Dreng",
+                genderGirl: "Pige",
+                genderNeutral: "Neutral",
+                labelDob: "Fødselsdato (valgfri)",
+                labelParent1: "Forælder 1's Navn (valgfri)",
+                parent1Placeholder: "Fx 'Anne'",
+                labelParent2: "Forælder 2's Navn (valgfri)",
+                parent2Placeholder: "Fx 'Jens'",
+                labelMiddlename: "Ønsket Mellemnavn (valgfri)",
+                middlenamePlaceholder: "Fx 'Holm'",
+                labelLastname: "Ønsket Efternavn (valgfri)",
+                lastnamePlaceholder: "Fx 'Nielsen'",
+                labelNationality: "Nationalitet (valgfri)",
+                nationalityPlaceholder: "Fx 'Dansk', 'Skandinavisk'",
+                labelMethod: "Vælg en kreativ metode",
+                methodOptions: {
+                    "En blanding af alle metoder": "Kreativ blanding",
+                    "Astrologi (baseret på stjernetegn)": "Astrologi",
+                    "Numerologi (baseret på tal og navne)": "Numerologi",
+                    "Historisk og mytologisk betydning": "Historisk & Mytologisk",
+                    "Naturinspiration (blomster, træer, steder)": "Naturinspiration"
                 },
-                en: {
-                    mainTitle: "AI Name Generator",
-                    subtitle: "Find the perfect and meaningful name for your child.",
-                    howItWorksButton: "How does it work?",
-                    privacyPolicyLink: "Privacy Policy",
-                    labelGender: "Child's Gender",
-                    genderBoy: "Boy",
-                    genderGirl: "Girl",
-                    genderNeutral: "Neutral",
-                    labelDob: "Date of Birth (optional)",
-                    labelParent1: "Parent 1's Name (optional)",
-                    parent1Placeholder: "E.g. 'Anne'",
-                    labelParent2: "Parent 2's Name (optional)",
-                    parent2Placeholder: "E.g. 'Jens'",
-                    labelMiddlename: "Desired Middle Name (optional)",
-                    middlenamePlaceholder: "E.g. 'Holm'",
-                    labelLastname: "Desired Last Name (optional)",
-                    lastnamePlaceholder: "E.g. 'Nielsen'",
-                    labelNationality: "Nationality (optional)",
-                    nationalityPlaceholder: "E.g. 'Danish', 'Scandinavian'",
-                    labelMethod: "Choose a creative method",
-                    methodOptions: {
-                        "En blanding af alle metoder": "Creative Mix",
-                        "Astrologi (baseret på stjernetegn)": "Astrology",
-                        "Numerologi (baseret på tal og navne)": "Numerology",
-                        "Historisk og mytologisk betydning": "Historical & Mythological",
-                        "Naturinspiration (blomster, træer, steder)": "Nature Inspiration"
-                    },
-                    labelNameStyle: "Name Style / Era",
-                    nameStyleOptions: {
-                        "Tidløst": "Timeless",
-                        "Moderne (efter 2000)": "Modern",
-                        "Klassisk (1950-1990)": "Classic",
-                        "Gammeldags (før 1950)": "Old-fashioned"
-                    },
-                    labelGenerateMiddlename: "Also generate a middle name",
-                    generateButtonText: "Generate Name Suggestions",
-                    regenerateButtonText: "Generate New Suggestions",
-                    originMeaningLabel: "Origin & Meaning (First Name)",
-                    personalJustificationLabel: "Personal Justification",
-                    apiError: "Could not generate names. Please try again.",
-                    noResultsError: "The AI could not find any names based on your choices. Please try adjusting your input.",
-                    helpTitle: "How to Use the Name Generator",
-                    helpContent: `
-                        <h4 class="font-semibold text-lg mb-2">What do the different choices mean?</h4>
-                        <p class="mb-4">The more information you provide to the AI, the more personal and unique name suggestions it can generate. Here is a guide to how each field is used:</p>
-                        <div class="space-y-3">
-                            <p><strong>Child's Gender:</strong> The most basic choice. Determines whether the AI should find boy, girl, or gender-neutral names.</p>
-                            <p><strong>Date of Birth:</strong> Used especially in the <strong>Astrology</strong> method to determine the child's zodiac sign. It can also inspire names based on the season.</p>
-                            <p><strong>Parents' Names:</strong> The AI looks for a common thread. It might find names with the same origin, sound, or cultural background as the parents' names.</p>
-                            <p><strong>Last Name:</strong> Used to ensure that the first name sounds good with the last name and to avoid combinations that are difficult to pronounce.</p>
-                            <p><strong>Nationality:</strong> Guides the AI to find names that are popular or have roots in the specified culture or region.</p>
-                        </div>
-                        <hr class="my-4">
-                        <h4 class="font-semibold text-lg mb-2">Creative Methods</h4>
-                        <div class="space-y-3">
-                            <p><strong>Creative Mix:</strong> Lets the AI freely combine all methods for the most unexpected and unique suggestions.</p>
-                            <p><strong>Astrology:</strong> Finds names that match the personality traits associated with the child's zodiac sign.</p>
-                            <p><strong>Numerology:</strong> Analyzes the numerical value in names to find suggestions that harmonize energetically.</p>
-                            <p><strong>Historical & Mythological:</strong> Draws inspiration from historical figures, gods, and heroes.</p>
-                            <p><strong>Nature Inspiration:</strong> Suggests names based on elements from nature.</p>
-                        </div>
-                        <hr class="my-4">
-                        <h4 class="font-semibold text-lg mb-2">Name Styles</h4>
-                        <div class="space-y-3">
-                            <p><strong>Timeless:</strong> Classic names that never go out of style (e.g., Anna, Peter).</p>
-                            <p><strong>Modern:</strong> Names that have become popular in recent decades (e.g., Luna, Noah).</p>
-                            <p><strong>Classic:</strong> Popular names from the mid-20th century (e.g., Susan, Michael).</p>
-                            <p><strong>Old-fashioned:</strong> Traditional names from before 1950 with a nostalgic sound (e.g., Dorothy, Arthur).</p>
-                        </div>`,
-                    privacyTitle: "Privacy Policy",
-                    privacyContent: `
-                        <h4 class="font-semibold text-lg mb-2">Your Privacy is Important</h4>
-                        <p>We do not save any of the information you enter in the form on this page. All data (such as names, dates, and other choices) is used solely to generate name suggestions the moment you click the button.</p>
-                        <p>When you leave or refresh the page, all entered information is gone. We do not have a database and do not track your choices.</p>
-                        <hr class="my-4">
-                        <h4 class="font-semibold text-lg mb-2">Third-Party Services</h4>
-                        <p>We use third-party services that have their own privacy policies:</p>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li><strong>Google AdSense:</strong> Displays ads on the site. Google may use cookies to show you relevant ads. You can read more in <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Google's Ad Policy</a>.</li>
-                            <li><strong>AI Service:</strong> The anonymized information from the form is sent to an AI service to generate names. This data is not used to identify you.</li>
-                        </ul>`
+                labelNameStyle: "Navnestil / Tidsperiode",
+                nameStyleOptions: {
+                    "Tidløst": "Tidløst",
+                    "Moderne (efter 2000)": "Moderne",
+                    "Klassisk (1950-1990)": "Klassisk",
+                    "Gammeldags (før 1950)": "Gammeldags"
                 },
-                de: {
-                    mainTitle: "KI-Namensgenerator",
-                    subtitle: "Finden Sie den perfekten und bedeutungsvollen Namen für Ihr Kind.",
-                    howItWorksButton: "Wie funktioniert es?",
-                    privacyPolicyLink: "Datenschutz",
-                    labelGender: "Geschlecht des Kindes",
-                    genderBoy: "Junge",
-                    genderGirl: "Mädchen",
-                    genderNeutral: "Neutral",
-                    labelDob: "Geburtsdatum (optional)",
-                    labelParent1: "Name von Elternteil 1 (optional)",
-                    parent1Placeholder: "Z.B. 'Anne'",
-                    labelParent2: "Name von Elternteil 2 (optional)",
-                    parent2Placeholder: "Z.B. 'Jens'",
-                    labelMiddlename: "Gewünschter Zweitname (optional)",
-                    middlenamePlaceholder: "Z.B. 'Holm'",
-                    labelLastname: "Gewünschter Nachname (optional)",
-                    lastnamePlaceholder: "Z.B. 'Nielsen'",
-                    labelNationality: "Nationalität (optional)",
-                    nationalityPlaceholder: "Z.B. 'Deutsch', 'Skandinavisch'",
-                    labelMethod: "Wählen Sie eine kreative Methode",
-                     methodOptions: {
-                        "En blanding af alle metoder": "Kreative Mischung",
-                        "Astrologi (baseret på stjernetegn)": "Astrologie",
-                        "Numerologi (baseret på tal og navne)": "Numerologie",
-                        "Historisk og mytologisk betydning": "Historisch & Mythologisch",
-                        "Naturinspiration (blomster, træer, steder)": "Naturinspiration"
-                    },
-                    labelNameStyle: "Namensstil / Epoche",
-                    nameStyleOptions: {
-                        "Tidløst": "Zeitlos",
-                        "Moderne (efter 2000)": "Modern",
-                        "Klassisk (1950-1990)": "Klassisch",
-                        "Gammeldags (før 1950)": "Altmodisch"
-                    },
-                    labelGenerateMiddlename: "Auch einen Zweitnamen generieren",
-                    generateButtonText: "Namensvorschläge generieren",
-                    regenerateButtonText: "Neue Vorschläge generieren",
-                    originMeaningLabel: "Herkunft & Bedeutung (Vorname)",
-                    personalJustificationLabel: "Persönliche Begründung",
-                    apiError: "Namen konnten nicht generiert werden. Bitte versuchen Sie es erneut.",
-                    noResultsError: "Die KI konnte keine Namen basierend auf Ihrer Auswahl finden. Bitte passen Sie Ihre Eingaben an.",
-                    helpTitle: "So wird der Namensgenerator verwendet",
-                    helpContent: `
-                        <h4 class="font-semibold text-lg mb-2">Was bedeuten die verschiedenen Optionen?</h4>
-                        <p class="mb-4">Je mehr Informationen Sie der KI geben, desto persönlichere und einzigartigere Namensvorschläge kann sie generieren. Hier ist eine Anleitung, wie jedes Feld verwendet wird:</p>
-                        <div class="space-y-3">
-                            <p><strong>Geschlecht des Kindes:</strong> Die grundlegendste Wahl. Bestimmt, ob die KI Jungen-, Mädchen- oder geschlechtsneutrale Namen finden soll.</p>
-                            <p><strong>Geburtsdatum:</strong> Wird insbesondere bei der <strong>Astrologie</strong>-Methode verwendet, um das Sternzeichen des Kindes zu bestimmen. Kann auch zu Namen inspirieren, die auf der Jahreszeit basieren.</p>
-                            <p><strong>Namen der Eltern:</strong> Die KI sucht nach einem roten Faden. Sie kann Namen mit demselben Ursprung, Klang oder kulturellen Hintergrund wie die Namen der Eltern finden.</p>
-                            <p><strong>Nachname:</strong> Wird verwendet, um sicherzustellen, dass der Vorname gut zum Nachnamen passt und schwer auszusprechende Kombinationen vermieden werden.</p>
-                            <p><strong>Nationalität:</strong> Leitet die KI an, Namen zu finden, die in der angegebenen Kultur oder Region beliebt sind oder dort ihre Wurzeln haben.</p>
+                labelGenerateMiddlename: "Generer også et mellemnavn",
+                generateButtonText: "Find Navne",
+                regenerateButtonText: "Prøv Igen",
+                originMeaningLabel: "Oprindelse & Betydning (Fornavn)",
+                personalJustificationLabel: "Personlig Begrundelse",
+                apiError: "Kunne ikke generere navne. Prøv venligst igen.",
+                noResultsError: "AI'en kunne desværre ikke finde nogle navne baseret på dine valg. Prøv at justere dine input.",
+                helpTitle: "Sådan bruges Navnegeneratoren",
+                helpContent: `
+                    <h4 class="font-semibold text-lg mb-2">Hvad betyder de forskellige valg?</h4>
+                    <p class="mb-4">Jo mere information du giver AI'en, jo mere personlige og unikke navneforslag kan den generere. Her er en guide til, hvordan hvert felt bruges:</p>
+                    <div class="space-y-3">
+                        <p><strong>Barnets Køn:</strong> Det mest grundlæggende valg. Bestemmer om AI'en skal finde drenge-, pige- eller kønsneutrale navne.</p>
+                        <p><strong>Fødselsdato:</strong> Bruges især i <strong>Astrologi</strong>-metoden til at finde barnets stjernetegn. Kan også inspirere til navne baseret på årstiden.</p>
+                        <p><strong>Forældres Navne:</strong> AI'en leder efter en rød tråd. Den kan finde navne med samme oprindelse, lyd eller kulturelle baggrund som forældrenes navne.</p>
+                        <p><strong>Efternavn:</strong> Bruges til at sikre, at fornavnet klinger godt sammen med efternavnet og undgå kombinationer, der er svære at udtale.</p>
+                        <p><strong>Nationalitet:</strong> Guider AI'en til at finde navne, der er populære eller har rødder i den angivne kultur eller region.</p>
+                    </div>
+                    <hr class="my-4">
+                    <h4 class="font-semibold text-lg mb-2">Kreative Metoder</h4>
+                    <div class="space-y-3">
+                        <p><strong>Kreativ blanding:</strong> Lader AI'en frit kombinere alle metoder for de mest uventede og unikke forslag.</p>
+                        <p><strong>Astrologi:</strong> Finder navne, der matcher de personlighedstræk, der er forbundet med barnets stjernetegn.</p>
+                        <p><strong>Numerologi:</strong> Analyserer talværdien i navne for at finde forslag, der harmonerer energimæssigt.</p>
+                        <p><strong>Historisk & Mytologisk:</strong> Henter inspiration fra historiske figurer, guder og helte.</p>
+                        <p><strong>Naturinspiration:</strong> Foreslår navne baseret på elementer fra naturen.</p>
+                    </div>
+                    <hr class="my-4">
+                    <h4 class="font-semibold text-lg mb-2">Navnestile</h4>
+                    <div class="space-y-3">
+                        <p><strong>Tidløst:</strong> Klassiske navne, der aldrig går af mode (f.eks. Anna, Peter).</p>
+                        <p><strong>Moderne:</strong> Navne, der er blevet populære i de seneste årtier (f.eks. Luna, Noah).</p>
+                        <p><strong>Klassisk:</strong> Populære navne fra midten af det 20. århundrede (f.eks. Hanne, Lars).</p>
+                        <p><strong>Gammeldags:</strong> Traditionelle navne fra før 1950 med en nostalgisk klang (f.eks. Gerda, Aksel).</p>
+                    </div>`,
+                privacyTitle: "Privatlivspolitik",
+                privacyContent: `
+                    <h4 class="font-semibold text-lg mb-2">Dit privatliv er vigtigt</h4>
+                    <p>Vi gemmer ingen af de oplysninger, du indtaster i formularen på denne side. Alle data (såsom navne, datoer og andre valg) bruges udelukkende til at generere navneforslag i det øjeblik, du klikker på knappen.</p>
+                    <p>Når du forlader eller opdaterer siden, er alle indtastede oplysninger væk. Vi har ingen database og sporer ikke dine valg.</p>
+                    <hr class="my-4">
+                    <h4 class="font-semibold text-lg mb-2">Tredjepartstjenester</h4>
+                    <p>Vi bruger tredjepartstjenester, som har deres egne privatlivspolitikker:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Google AdSense:</strong> Viser annoncer på siden. Google kan bruge cookies til at vise dig relevante annoncer. Du kan læse mere i <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Googles annoncepolitik</a>.</li>
+                        <li><strong>AI Service:</strong> De anonymiserede oplysninger fra formularen sendes til en AI-tjeneste for at generere navne. Disse data bruges ikke til at identificere dig.</li>
+                    </ul>`
+            },
+            en: {
+                mainTitle: "Name Wizard",
+                subtitle: "Find the perfect and meaningful name for your child.",
+                howItWorksButton: "How does it work?",
+                privacyPolicyLink: "Privacy Policy",
+                labelGender: "Child's Gender",
+                genderBoy: "Boy",
+                genderGirl: "Girl",
+                genderNeutral: "Neutral",
+                labelDob: "Date of Birth (optional)",
+                labelParent1: "Parent 1's Name (optional)",
+                parent1Placeholder: "E.g. 'Anne'",
+                labelParent2: "Parent 2's Name (optional)",
+                parent2Placeholder: "E.g. 'Jens'",
+                labelMiddlename: "Desired Middle Name (optional)",
+                middlenamePlaceholder: "E.g. 'Holm'",
+                labelLastname: "Desired Last Name (optional)",
+                lastnamePlaceholder: "E.g. 'Nielsen'",
+                labelNationality: "Nationality (optional)",
+                nationalityPlaceholder: "E.g. 'Danish', 'Scandinavian'",
+                labelMethod: "Choose a creative method",
+                methodOptions: {
+                    "En blanding af alle metoder": "Creative Mix",
+                    "Astrologi (baseret på stjernetegn)": "Astrology",
+                    "Numerologi (baseret på tal og navne)": "Numerology",
+                    "Historisk og mytologisk betydning": "Historical & Mythological",
+                    "Naturinspiration (blomster, træer, steder)": "Nature Inspiration"
+                },
+                labelNameStyle: "Name Style / Era",
+                nameStyleOptions: {
+                    "Tidløst": "Timeless",
+                    "Moderne (efter 2000)": "Modern",
+                    "Klassisk (1950-1990)": "Classic",
+                    "Gammeldags (før 1950)": "Old-fashioned"
+                },
+                labelGenerateMiddlename: "Also generate a middle name",
+                generateButtonText: "Find Names",
+                regenerateButtonText: "Try Again",
+                originMeaningLabel: "Origin & Meaning (First Name)",
+                personalJustificationLabel: "Personal Justification",
+                apiError: "Could not generate names. Please try again.",
+                noResultsError: "The AI could not find any names based on your choices. Please try adjusting your input.",
+                helpTitle: "How to Use the Name Generator",
+                helpContent: `
+                    <h4 class="font-semibold text-lg mb-2">What do the different choices mean?</h4>
+                    <p class="mb-4">The more information you provide to the AI, the more personal and unique name suggestions it can generate. Here is a guide to how each field is used:</p>
+                    <div class="space-y-3">
+                        <p><strong>Child's Gender:</strong> The most basic choice. Determines whether the AI should find boy, girl, or gender-neutral names.</p>
+                        <p><strong>Date of Birth:</strong> Used especially in the <strong>Astrology</strong> method to determine the child's zodiac sign. It can also inspire names based on the season.</p>
+                        <p><strong>Parents' Names:</strong> The AI looks for a common thread. It might find names with the same origin, sound, or cultural background as the parents' names.</p>
+                        <p><strong>Last Name:</strong> Used to ensure that the first name sounds good with the last name and to avoid combinations that are difficult to pronounce.</p>
+                        <p><strong>Nationality:</strong> Guides the AI to find names that are popular or have roots in the specified culture or region.</p>
+                    </div>
+                    <hr class="my-4">
+                    <h4 class="font-semibold text-lg mb-2">Creative Methods</h4>
+                    <div class="space-y-3">
+                        <p><strong>Creative Mix:</strong> Lets the AI freely combine all methods for the most unexpected and unique suggestions.</p>
+                        <p><strong>Astrology:</strong> Finds names that match the personality traits associated with the child's zodiac sign.</p>
+                        <p><strong>Numerology:</strong> Analyzes the numerical value in names to find suggestions that harmonize energetically.</p>
+                        <p><strong>Historical & Mythological:</strong> Draws inspiration from historical figures, gods, and heroes.</p>
+                        <p><strong>Nature Inspiration:</strong> Suggests names based on elements from nature.</p>
+                    </div>
+                    <hr class="my-4">
+                    <h4 class="font-semibold text-lg mb-2">Name Styles</h4>
+                    <div class="space-y-3">
+                        <p><strong>Timeless:</strong> Classic names that never go out of style (e.g., Anna, Peter).</p>
+                        <p><strong>Modern:</strong> Names that have become popular in recent decades (e.g., Luna, Noah).</p>
+                        <p><strong>Classic:</strong> Popular names from the mid-20th century (e.g., Susan, Michael).</p>
+                        <p><strong>Old-fashioned:</strong> Traditional names from before 1950 with a nostalgic sound (e.g., Dorothy, Arthur).</p>
+                    </div>`,
+                privacyTitle: "Privacy Policy",
+                privacyContent: `
+                    <h4 class="font-semibold text-lg mb-2">Your Privacy is Important</h4>
+                    <p>We do not save any of the information you enter in the form on this page. All data (such as names, dates, and other choices) is used solely to generate name suggestions the moment you click the button.</p>
+                    <p>When you leave or refresh the page, all entered information is gone. We do not have a database and do not track your choices.</p>
+                    <hr class="my-4">
+                    <h4 class="font-semibold text-lg mb-2">Third-Party Services</h4>
+                    <p>We use third-party services that have their own privacy policies:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Google AdSense:</strong> Displays ads on the site. Google may use cookies to show you relevant ads. You can read more in <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Google's Ad Policy</a>.</li>
+                        <li><strong>AI Service:</strong> The anonymized information from the form is sent to an AI service to generate names. This data is not used to identify you.</li>
+                    </ul>`
+            },
+            de: {
+                mainTitle: "Namens-Zauberer",
+                subtitle: "Finden Sie den perfekten und bedeutungsvollen Namen für Ihr Kind.",
+                howItWorksButton: "Wie funktioniert es?",
+                privacyPolicyLink: "Datenschutz",
+                labelGender: "Geschlecht des Kindes",
+                genderBoy: "Junge",
+                genderGirl: "Mädchen",
+                genderNeutral: "Neutral",
+                labelDob: "Geburtsdatum (optional)",
+                labelParent1: "Name von Elternteil 1 (optional)",
+                parent1Placeholder: "Z.B. 'Anne'",
+                labelParent2: "Name von Elternteil 2 (optional)",
+                parent2Placeholder: "Z.B. 'Jens'",
+                labelMiddlename: "Gewünschter Zweitname (optional)",
+                middlenamePlaceholder: "Z.B. 'Holm'",
+                labelLastname: "Gewünschter Nachname (optional)",
+                lastnamePlaceholder: "Z.B. 'Nielsen'",
+                labelNationality: "Nationalität (optional)",
+                nationalityPlaceholder: "Z.B. 'Deutsch', 'Skandinavisch'",
+                labelMethod: "Wählen Sie eine kreative Methode",
+                 methodOptions: {
+                    "En blanding af alle metoder": "Kreative Mischung",
+                    "Astrologi (baseret på stjernetegn)": "Astrologie",
+                    "Numerologi (baseret på tal og navne)": "Numerologie",
+                    "Historisk og mytologisk betydning": "Historisch & Mythologisch",
+                    "Naturinspiration (blomster, træer, steder)": "Naturinspiration"
+                },
+                labelNameStyle: "Namensstil / Epoche",
+                nameStyleOptions: {
+                    "Tidløst": "Zeitlos",
+                    "Moderne (efter 2000)": "Modern",
+                    "Klassisk (1950-1990)": "Klassisch",
+                    "Gammeldags (før 1950)": "Altmodisch"
+                },
+                labelGenerateMiddlename: "Auch einen Zweitnamen generieren",
+                generateButtonText: "Namen finden",
+                regenerateButtonText: "Erneut versuchen",
+                originMeaningLabel: "Herkunft & Bedeutung (Vorname)",
+                personalJustificationLabel: "Persönliche Begründung",
+                apiError: "Namen konnten nicht generiert werden. Bitte versuchen Sie es erneut.",
+                noResultsError: "Die KI konnte keine Namen basierend auf Ihrer Auswahl finden. Bitte passen Sie Ihre Eingaben an.",
+                helpTitle: "So wird der Namensgenerator verwendet",
+                helpContent: `
+                    <h4 class="font-semibold text-lg mb-2">Was bedeuten die verschiedenen Optionen?</h4>
+                    <p class="mb-4">Je mehr Informationen Sie der KI geben, desto persönlichere und einzigartigere Namensvorschläge kann sie generieren. Hier ist eine Anleitung, wie jedes Feld verwendet wird:</p>
+                    <div class="space-y-3">
+                        <p><strong>Geschlecht des Kindes:</strong> Die grundlegendste Wahl. Bestimmt, ob die KI Jungen-, Mädchen- oder geschlechtsneutrale Namen finden soll.</p>
+                        <p><strong>Geburtsdatum:</strong> Wird insbesondere bei der <strong>Astrologie</strong>-Methode verwendet, um das Sternzeichen des Kindes zu bestimmen. Kann auch zu Namen inspireren, die auf der Jahreszeit basieren.</p>
+                        <p><strong>Namen der Eltern:</strong> Die KI sucht nach einem roten Faden. Sie kann Namen mit demselben Ursprung, Klang oder kulturellen Hintergrund wie die Namen der Eltern finden.</p>
+                        <p><strong>Nachname:</strong> Wird verwendet, um sicherzustellen, dass der Vorname gut zum Nachnamen passt und schwer auszusprechende Kombinationen vermieden werden.</p>
+                        <p><strong>Nationalität:</strong> Leitet die KI an, Namen zu finden, die in der angegebenen Kultur oder Region beliebt sind oder dort ihre Wurzeln haben.</p>
                         </div>
                         <hr class="my-4">
                         <h4 class="font-semibold text-lg mb-2">Kreative Methoden</h4>
@@ -487,7 +503,7 @@
                         </ul>`
                 },
                 es: {
-                    mainTitle: "Generador de Nombres con IA",
+                    mainTitle: "Mago de Nombres",
                     subtitle: "Encuentra el nombre perfecto y significativo para tu hijo.",
                     howItWorksButton: "¿Cómo funciona?",
                     privacyPolicyLink: "Política de Privacidad",
@@ -522,8 +538,8 @@
                         "Gammeldags (før 1950)": "Antiguo"
                     },
                     labelGenerateMiddlename: "Generar también un segundo nombre",
-                    generateButtonText: "Generar Sugerencias de Nombres",
-                    regenerateButtonText: "Generar Nuevas Sugerencias",
+                    generateButtonText: "Encontrar Nombres",
+                    regenerateButtonText: "Intentar de Nuevo",
                     originMeaningLabel: "Origen y Significado (Nombre)",
                     personalJustificationLabel: "Justificación Personal",
                     apiError: "No se pudieron generar los nombres. Por favor, inténtalo de nuevo.",
@@ -749,10 +765,26 @@
                      errorMessage.classList.remove('hidden');
                      return;
                 }
+                
+                const gender = new FormData(nameForm).get('gender');
 
                 suggestions.forEach(suggestion => {
                     const card = document.createElement('div');
-                    card.className = 'card animate-fade-in';
+                    
+                    let borderColorClass = 'border-gray-200';
+                    let textColorClass = 'text-sky-600';
+                    if (gender === 'Dreng') {
+                        borderColorClass = 'border-blue-300';
+                        textColorClass = 'text-blue-600';
+                    } else if (gender === 'Pige') {
+                        borderColorClass = 'border-pink-300';
+                        textColorClass = 'text-pink-600';
+                    } else {
+                        borderColorClass = 'border-purple-300';
+                        textColorClass = 'text-purple-600';
+                    }
+                    
+                    card.className = `card animate-fade-in border-t-4 ${borderColorClass}`;
                     
                     let fullName = suggestion.navn;
                     if (suggestion.mellemnavn && suggestion.mellemnavn.trim() !== "") {
@@ -763,7 +795,7 @@
                     }
 
                     card.innerHTML = `
-                        <h3 class="text-2xl font-display text-indigo-600">${fullName}</h3>
+                        <h3 class="text-2xl font-display ${textColorClass}">${fullName}</h3>
                         <div class="mt-4">
                             <p class="font-semibold text-gray-700">${translations[currentLang].originMeaningLabel}</p>
                             <p class="text-gray-600 mt-1">${suggestion.oprindelse_betydning}</p>
@@ -822,12 +854,29 @@
                 }
             });
 
-            // Initialize with default language
-            updateLanguage('da');
-        });
-    </script>
-</body>
-</html>
+            // Theme switcher
+            const genderRadios = document.querySelectorAll('input[name="gender"]');
+            const body = document.body;
 
+            const themes = {
+                'Dreng': 'linear-gradient(to bottom right, #f0f9ff, #e0f2fe, #dbeafe)',
+                'Pige': 'linear-gradient(to bottom right, #fdf2f8, #fce7f3, #fbcfe8)',
+                'Kønsneutral': 'linear-gradient(to bottom right, #f5f3ff, #ede9fe, #ddd6fe)'
+            };
+
+            function updateTheme(gender) {
+                body.style.backgroundImage = themes[gender];
+            }
+
+            genderRadios.forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    updateTheme(event.target.value);
+                });
+            });
+
+            // Initialize with default language and theme
+            updateLanguage('da');
+            updateTheme('Dreng'); // Default to boy theme
+    </script>
 </body>
 </html>
