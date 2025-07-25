@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Navnegenerator til Nyfødte</title>
+    <title>AI Navnegenerator & Betydning</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-image 0.5s ease-in-out;
+            transition: background-image 0.5s ease-in-out, background-color 0.5s ease-in-out;
         }
         h1, .font-display {
             font-family: 'Pacifico', cursive;
@@ -62,12 +62,69 @@
             opacity: 0.2;
             z-index: -1;
             animation: float 20s ease-in-out infinite;
+            transition: opacity 0.5s ease-in-out;
         }
         @keyframes float {
             0% { transform: translateY(0px) translateX(0px); }
             50% { transform: translateY(-20px) translateX(10px); }
             100% { transform: translateY(0px) translateX(0px); }
         }
+        .nav-button {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .nav-button.active {
+            background-color: #fff;
+            color: #3b82f6;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Theme for Name Meaning Page */
+        body.theme-meaning {
+            background-color: #111827; /* Very Dark Blue/Gray */
+            background-image: none;
+        }
+        .theme-meaning .cloud { opacity: 0; }
+        .theme-meaning #main-title, .theme-meaning #subtitle { color: #f9fafb; }
+        .theme-meaning #how-it-works-button { color: #9ca3af; }
+        .theme-meaning .nav-button { color: #d1d5db; }
+        .theme-meaning .nav-button.active { background-color: #f59e0b; color: #111827; }
+        .theme-meaning nav > div { background-color: rgba(31, 41, 55, 0.5); }
+        .theme-meaning .main-container { background-color: rgba(31, 41, 55, 0.5); border-color: rgba(245, 158, 11, 0.3); }
+        .theme-meaning label, .theme-meaning span { color: #d1d5db; }
+        .theme-meaning input, .theme-meaning select { background-color: #374151; border-color: #4b5563; color: #f3f4f6; }
+        .theme-meaning #meaning-button { background-color: #f59e0b; color: #111827; font-weight: 600; }
+        .theme-meaning #meaning-button:hover { background-color: #fbbf24; }
+        .theme-meaning .card { background-color: #1f2937; border-color: #4b5563; }
+        .theme-meaning .card h3 { color: #f59e0b; }
+        .theme-meaning .card p { color: #d1d5db; }
+        .theme-meaning footer { background-color: rgba(17, 24, 39, 0.7); }
+        .theme-meaning footer span, .theme-meaning footer a { color: #9ca3af; }
+        
+        /* Theme for Numerology Page */
+        body.theme-numerology {
+            background-color: #2e1065; /* Deep Indigo */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235b21b6' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .theme-numerology .cloud { opacity: 0; }
+        .theme-numerology #main-title, .theme-numerology #subtitle { color: #f5f3ff; }
+        .theme-numerology #how-it-works-button { color: #c4b5fd; }
+        .theme-numerology .nav-button { color: #e0e7ff; }
+        .theme-numerology .nav-button.active { background-color: #d8b4fe; color: #4c1d95; }
+        .theme-numerology nav > div { background-color: rgba(67, 56, 202, 0.3); }
+        .theme-numerology .main-container { background-color: rgba(46, 16, 101, 0.5); border-color: rgba(192, 132, 252, 0.3); }
+        .theme-numerology label, .theme-numerology span { color: #e0e7ff; }
+        .theme-numerology input, .theme-numerology select { background-color: #4c1d95; border-color: #6d28d9; color: #f5f3ff; }
+        .theme-numerology #numerology-button { background-color: #d8b4fe; color: #4c1d95; font-weight: 600; }
+        .theme-numerology #numerology-button:hover { background-color: #e9d5ff; }
+        .theme-numerology .card { background-color: #3b0764; border-color: #5b21b6; }
+        .theme-numerology .card h3 { color: #d8b4fe; }
+        .theme-numerology .card p { color: #e0e7ff; }
+        .theme-numerology footer { background-color: rgba(46, 16, 101, 0.5); }
+        .theme-numerology footer span, .theme-numerology footer a { color: #a78bfa; }
+
     </style>
 </head>
 <body class="text-gray-700 flex flex-col min-h-screen">
@@ -78,7 +135,7 @@
     <svg class="cloud" style="bottom: 10%; left: 15%; width: 120px; animation-duration: 20s; animation-delay: -10s;" viewBox="0 0 100 60" fill="#a7d7f9"><path d="M83.4,23.3c-0.2-11.3-9.4-20.4-20.7-20.2C53.4,3.3,45.4,10,43.2,19.3c-2.8-3.4-7.2-5.5-12.1-5.5c-8.3,0-15.1,6.8-15.1,15.1 c0,0.9,0.1,1.8,0.3,2.6C6.9,32.4,0,40.3,0,49.4C0,55.3,4.7,60,10.5,60h79c5.8,0,10.5-4.7,10.5-10.5 C100,42.1,92.9,34.1,83.4,23.3z"></path></svg>
 
     <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl flex-grow">
-        <header class="text-center mb-8 relative pt-8">
+        <header class="text-center mb-4 relative pt-8">
              <div class="absolute top-0 right-0">
                 <label for="language-select" class="sr-only">Vælg sprog</label>
                 <select id="language-select" class="rounded-lg border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
@@ -93,6 +150,15 @@
             <button id="how-it-works-button" class="mt-4 text-sky-600 underline hover:text-sky-800 text-sm">Hvordan virker det?</button>
         </header>
         
+        <!-- Navigation Menu -->
+        <nav class="flex justify-center my-8">
+            <div class="bg-sky-100/50 p-1 rounded-full space-x-2">
+                <button id="nav-generator" class="nav-button active">Navnegenerator</button>
+                <button id="nav-meaning" class="nav-button">Navne Betydning</button>
+                <button id="nav-numerology" class="nav-button">Numerologi</button>
+            </div>
+        </nav>
+
         <!-- Top banner -->
         <div class="my-8">
             <ins class="adsbygoogle"
@@ -106,7 +172,8 @@
             </script>
         </div>
 
-        <main>
+        <!-- PAGE 1: NAME GENERATOR -->
+        <main id="page-generator">
             <div class="main-container p-6 md:p-8">
                 <form id="name-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -213,21 +280,83 @@
                     </button>
                 </div>
             </div>
-            
-            <!-- Bottom ad -->
-            <div class="mt-8">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-2250830039433254"
-                     data-ad-slot="8873595578"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-
         </main>
+
+        <!-- PAGE 2: NAME MEANING -->
+        <main id="page-meaning" class="hidden">
+            <div class="main-container p-6 md:p-8">
+                <form id="meaning-form">
+                    <div>
+                        <label id="label-your-name" for="name-input" class="block text-sm font-medium">Indtast et navn for at finde dets betydning</label>
+                        <input type="text" id="name-input" name="name-input" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm p-2" required>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <button type="submit" id="meaning-button" class="w-full md:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-transform transform hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            <span id="meaning-button-text">Analyser Navn</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+             <!-- Meaning Results Section -->
+            <div id="meaning-results-container" class="mt-10">
+                <div id="meaning-loader" class="hidden loader"></div>
+                <div id="meaning-error-message" class="hidden text-center text-red-500 bg-red-100 p-4 rounded-md"></div>
+                <div id="meaning-results">
+                    <!-- AI-generated meaning will be appended here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- PAGE 3: NUMEROLOGY -->
+        <main id="page-numerology" class="hidden">
+            <div class="main-container p-6 md:p-8">
+                <form id="numerology-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label id="label-full-name" for="full-name-input" class="block text-sm font-medium">Indtast dit fulde fødselsnavn</label>
+                            <input type="text" id="full-name-input" name="full-name-input" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm p-2" required>
+                        </div>
+                        <div>
+                            <label id="label-birth-date" for="birth-date-input" class="block text-sm font-medium">Indtast din fødselsdato</label>
+                            <input type="date" id="birth-date-input" name="birth-date-input" class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm p-2" required>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <button type="submit" id="numerology-button" class="w-full md:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-transform transform hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M10 3.5a.75.75 0 01.75.75v2.5a.75.75 0 01-1.5 0V4.25A.75.75 0 0110 3.5zM6.25 7.5a.75.75 0 000 1.5h7.5a.75.75 0 000-1.5h-7.5zM3.5 10a.75.75 0 01.75.75v5.5a.75.75 0 01-1.5 0v-5.5A.75.75 0 013.5 10z" />
+                            </svg>
+                            <span id="numerology-button-text">Beregn Numerologi</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+             <!-- Numerology Results Section -->
+            <div id="numerology-results-container" class="mt-10">
+                <div id="numerology-loader" class="hidden loader"></div>
+                <div id="numerology-error-message" class="hidden text-center text-red-500 bg-red-100 p-4 rounded-md"></div>
+                <div id="numerology-results">
+                    <!-- AI-generated numerology will be appended here -->
+                </div>
+            </div>
+        </main>
+
+        
+        <!-- Bottom ad -->
+        <div class="mt-8">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2250830039433254"
+                 data-ad-slot="8873595578"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
     
     <footer class="w-full bg-white/50 mt-12 py-4">
@@ -258,6 +387,9 @@
                 subtitle: "Find det perfekte og meningsfulde navn til dit barn.",
                 howItWorksButton: "Hvordan virker det?",
                 privacyPolicyLink: "Privatlivspolitik",
+                navGenerator: "Navnegenerator",
+                navMeaning: "Navne Betydning",
+                navNumerology: "Numerologi",
                 labelGender: "Barnets Køn",
                 genderBoy: "Dreng",
                 genderGirl: "Pige",
@@ -293,6 +425,17 @@
                 regenerateButtonText: "Prøv Igen",
                 originMeaningLabel: "Oprindelse & Betydning (Fornavn)",
                 personalJustificationLabel: "Personlig Begrundelse",
+                labelYourName: "Indtast et navn for at finde dets betydning",
+                meaningButtonText: "Analyser Navn",
+                historicalMeaning: "Historisk Betydning",
+                numerologicalAnalysis: "Numerologisk Analyse",
+                astrologicalConnection: "Astrologisk Forbindelse",
+                labelFullName: "Indtast dit fulde fødselsnavn",
+                labelBirthDate: "Indtast din fødselsdato",
+                numerologyButtonText: "Beregn Numerologi",
+                lifePathNumber: "Livsvejsnummer",
+                destinyNumber: "Skæbnetal",
+                soulUrgeNumber: "Sjælstal",
                 apiError: "Kunne ikke generere navne. Prøv venligst igen.",
                 noResultsError: "AI'en kunne desværre ikke finde nogle navne baseret på dine valg. Prøv at justere dine input.",
                 helpTitle: "Sådan bruges Navnegeneratoren",
@@ -341,6 +484,9 @@
                 subtitle: "Find the perfect and meaningful name for your child.",
                 howItWorksButton: "How does it work?",
                 privacyPolicyLink: "Privacy Policy",
+                navGenerator: "Name Generator",
+                navMeaning: "Name Meaning",
+                navNumerology: "Numerology",
                 labelGender: "Child's Gender",
                 genderBoy: "Boy",
                 genderGirl: "Girl",
@@ -376,6 +522,17 @@
                 regenerateButtonText: "Try Again",
                 originMeaningLabel: "Origin & Meaning (First Name)",
                 personalJustificationLabel: "Personal Justification",
+                labelYourName: "Enter a name to find its meaning",
+                meaningButtonText: "Analyze Name",
+                historicalMeaning: "Historical Meaning",
+                numerologicalAnalysis: "Numerological Analysis",
+                astrologicalConnection: "Astrological Connection",
+                labelFullName: "Enter your full birth name",
+                labelBirthDate: "Enter your date of birth",
+                numerologyButtonText: "Calculate Numerology",
+                lifePathNumber: "Life Path Number",
+                destinyNumber: "Destiny Number",
+                soulUrgeNumber: "Soul Urge Number",
                 apiError: "Could not generate names. Please try again.",
                 noResultsError: "The AI could not find any names based on your choices. Please try adjusting your input.",
                 helpTitle: "How to Use the Name Generator",
@@ -424,6 +581,9 @@
                 subtitle: "Finden Sie den perfekten und bedeutungsvollen Namen für Ihr Kind.",
                 howItWorksButton: "Wie funktioniert es?",
                 privacyPolicyLink: "Datenschutz",
+                navGenerator: "Namensgenerator",
+                navMeaning: "Namensbedeutung",
+                navNumerology: "Numerologie",
                 labelGender: "Geschlecht des Kindes",
                 genderBoy: "Junge",
                 genderGirl: "Mädchen",
@@ -459,6 +619,17 @@
                 regenerateButtonText: "Erneut versuchen",
                 originMeaningLabel: "Herkunft & Bedeutung (Vorname)",
                 personalJustificationLabel: "Persönliche Begründung",
+                labelYourName: "Geben Sie einen Namen ein, um seine Bedeutung zu finden",
+                meaningButtonText: "Namen analysieren",
+                historicalMeaning: "Historische Bedeutung",
+                numerologicalAnalysis: "Numerologische Analyse",
+                astrologicalConnection: "Astrologische Verbindung",
+                labelFullName: "Geben Sie Ihren vollständigen Geburtsnamen ein",
+                labelBirthDate: "Geben Sie Ihr Geburtsdatum ein",
+                numerologyButtonText: "Numerologie berechnen",
+                lifePathNumber: "Lebenswegzahl",
+                destinyNumber: "Schicksalszahl",
+                soulUrgeNumber: "Seelenzahl",
                 apiError: "Namen konnten nicht generiert werden. Bitte versuchen Sie es erneut.",
                 noResultsError: "Die KI konnte keine Namen basierend auf Ihrer Auswahl finden. Bitte passen Sie Ihre Eingaben an.",
                 helpTitle: "So wird der Namensgenerator verwendet",
@@ -507,6 +678,9 @@
                     subtitle: "Encuentra el nombre perfecto y significativo para tu hijo.",
                     howItWorksButton: "¿Cómo funciona?",
                     privacyPolicyLink: "Política de Privacidad",
+                    navGenerator: "Generador de Nombres",
+                    navMeaning: "Significado de Nombres",
+                    navNumerology: "Numerología",
                     labelGender: "Género del bebé",
                     genderBoy: "Niño",
                     genderGirl: "Niña",
@@ -542,6 +716,17 @@
                     regenerateButtonText: "Intentar de Nuevo",
                     originMeaningLabel: "Origen y Significado (Nombre)",
                     personalJustificationLabel: "Justificación Personal",
+                    labelYourName: "Introduce un nombre para encontrar su significado",
+                    meaningButtonText: "Analizar Nombre",
+                    historicalMeaning: "Significado Histórico",
+                    numerologicalAnalysis: "Análisis Numerológico",
+                    astrologicalConnection: "Conexión Astrológica",
+                    labelFullName: "Introduce tu nombre de nacimiento completo",
+                    labelBirthDate: "Introduce tu fecha de nacimiento",
+                    numerologyButtonText: "Calcular Numerología",
+                    lifePathNumber: "Número de Camino de Vida",
+                    destinyNumber: "Número de Destino",
+                    soulUrgeNumber: "Número del Alma",
                     apiError: "No se pudieron generar los nombres. Por favor, inténtalo de nuevo.",
                     noResultsError: "La IA no pudo encontrar ningún nombre basado en tus elecciones. Por favor, intenta ajustar tu entrada.",
                     helpTitle: "Cómo usar el Generador de Nombres",
@@ -553,7 +738,7 @@
                             <p><strong>Fecha de nacimiento:</strong> Se utiliza especialmente en el método de <strong>Astrología</strong> para determinar el signo zodiacal del niño. También puede inspirar nombres basados en la estación del año.</p>
                             <p><strong>Nombres de los padres:</strong> La IA busca un hilo conductor. Puede encontrar nombres con el mismo origen, sonido o trasfondo cultural que los nombres de los padres.</p>
                             <p><strong>Apellido:</strong> Se utiliza para asegurar que el nombre de pila suene bien con el apellido y para evitar combinaciones difíciles de pronunciar.</p>
-                            <p><strong>Nacionalidad:</strong> Guía a la IA para que encuentre nombres que sean populares o que tengan raíces en la cultura o región especificada.</p>
+                            <p><strong>Nationalidad:</strong> Guía a la IA para que encuentre nombres que sean populares o que tengan raíces en la cultura o región especificada.</p>
                         </div>
                         <hr class="my-4">
                         <h4 class="font-semibold text-lg mb-2">Métodos Creativos</h4>
@@ -603,6 +788,22 @@
             const howItWorksButton = document.getElementById('how-it-works-button');
             const privacyPolicyLink = document.getElementById('privacy-policy-link');
 
+            // Page elements
+            const pageGenerator = document.getElementById('page-generator');
+            const pageMeaning = document.getElementById('page-meaning');
+            const pageNumerology = document.getElementById('page-numerology');
+            const navGenerator = document.getElementById('nav-generator');
+            const navMeaning = document.getElementById('nav-meaning');
+            const navNumerology = document.getElementById('nav-numerology');
+            const meaningForm = document.getElementById('meaning-form');
+            const meaningLoader = document.getElementById('meaning-loader');
+            const meaningErrorMessage = document.getElementById('meaning-error-message');
+            const meaningResults = document.getElementById('meaning-results');
+            const numerologyForm = document.getElementById('numerology-form');
+            const numerologyLoader = document.getElementById('numerology-loader');
+            const numerologyErrorMessage = document.getElementById('numerology-error-message');
+            const numerologyResults = document.getElementById('numerology-results');
+
 
             let currentLang = 'da';
 
@@ -615,6 +816,9 @@
                 document.getElementById('subtitle').textContent = t.subtitle;
                 document.getElementById('how-it-works-button').textContent = t.howItWorksButton;
                 document.getElementById('privacy-policy-link').textContent = t.privacyPolicyLink;
+                document.getElementById('nav-generator').textContent = t.navGenerator;
+                document.getElementById('nav-meaning').textContent = t.navMeaning;
+                document.getElementById('nav-numerology').textContent = t.navNumerology;
                 document.getElementById('label-gender').textContent = t.labelGender;
                 document.getElementById('gender-boy').textContent = t.genderBoy;
                 document.getElementById('gender-girl').textContent = t.genderGirl;
@@ -635,6 +839,11 @@
                 document.getElementById('label-generate-middlename').textContent = t.labelGenerateMiddlename;
                 document.getElementById('generate-button-text').textContent = t.generateButtonText;
                 document.getElementById('regenerate-button-text').textContent = t.regenerateButtonText;
+                document.getElementById('label-your-name').textContent = t.labelYourName;
+                document.getElementById('meaning-button-text').textContent = t.meaningButtonText;
+                document.getElementById('label-full-name').textContent = t.labelFullName;
+                document.getElementById('label-birth-date').textContent = t.labelBirthDate;
+                document.getElementById('numerology-button-text').textContent = t.numerologyButtonText;
                 
                 const methodSelect = document.getElementById('method');
                 methodSelect.innerHTML = '';
@@ -659,7 +868,7 @@
                 updateLanguage(e.target.value);
             });
 
-            const getPrompt = (isRegenerating = false) => {
+            const getPromptForGenerator = (isRegenerating = false) => {
                 const formData = new FormData(nameForm);
                 const gender = formData.get('gender');
                 const dob = formData.get('dob') || 'ikke angivet';
@@ -674,7 +883,6 @@
 
                 let regenerationInstruction = isRegenerating ? "VIGTIGT: Dette er en anmodning om at regenerere. Giv venligst 9 HELT NYE OG MARKANT ANDERLEDES forslag end dem, du ville have givet før. Vær ekstra kreativ og undgå almindelige navne." : "Prioriter unikke og mindre almindelige navne.";
 
-                // Language-specific prompt instructions
                 const langInstructions = {
                     da: `Du er en kreativ og empatisk navneekspert. Svar altid på dansk.`,
                     en: `You are a creative and empathetic name expert. Always respond in English.`,
@@ -707,6 +915,47 @@
                 `;
             };
 
+            const getPromptForMeaning = (name) => {
+                 const langInstructions = {
+                    da: `Du er en ekspert i etymologi, numerologi og astrologi. Analyser det givne navn og svar altid på dansk.`,
+                    en: `You are an expert in etymology, numerology, and astrology. Analyze the given name and always respond in English.`,
+                    de: `Du bist Experte für Etymologie, Numerologie und Astrologie. Analysiere den angegebenen Namen und antworte immer auf Deutsch.`,
+                    es: `Eres un experto en etimología, numerología y astrología. Analiza el nombre proporcionado y responde siempre en español.`
+                };
+
+                return `
+                    ${langInstructions[currentLang]}
+                    Analyser navnet "${name}" ud fra følgende tre perspektiver:
+                    1.  **Historisk Betydning**: Forklar navnets oprindelse, etymologi og kulturelle historie.
+                    2.  **Numerologisk Analyse**: Beregn navnets numerologiske tal (både skæbnetal og personlighedstal, hvis muligt) og giv en fortolkning af, hvad disse tal repræsenterer af personlighedstræk og livsvej.
+                    3.  **Astrologisk Forbindelse**: Beskriv eventuelle forbindelser navnet har til planeter, stjernetegn eller astrologiske arketyper.
+
+                    Giv et detaljeret, men letforståeligt svar for hvert punkt.
+                `;
+            };
+
+            const getPromptForNumerology = (name, dob) => {
+                const langInstructions = {
+                    da: `Du er en numerologi-ekspert. Analyser det fulde navn og fødselsdato og giv en komplet numerologisk læsning. Svar altid på dansk.`,
+                    en: `You are a numerology expert. Analyze the full name and date of birth and provide a complete numerological reading. Always respond in English.`,
+                    de: `Du bist ein Numerologie-Experte. Analysiere den vollständigen Namen und das Geburtsdatum und erstelle eine vollständige numerologische Deutung. Antworte immer auf Deutsch.`,
+                    es: `Eres un experto en numerología. Analiza el nombre completo y la fecha de nacimiento y proporciona una lectura numerológica completa. Responde siempre en español.`
+                };
+                 return `
+                    ${langInstructions[currentLang]}
+                    Udfør en detaljeret numerologisk analyse baseret på følgende oplysninger:
+                    - Fulde Fødselsnavn: ${name}
+                    - Fødselsdato: ${dob}
+
+                    Beregn og forklar følgende numerologiske tal:
+                    1. **Livsvejsnummer (Life Path Number):** Baseret på fødselsdatoen. Forklar de centrale temaer og lektioner i personens liv.
+                    2. **Skæbnetal/Udtryksnummer (Destiny/Expression Number):** Baseret på alle bogstaver i det fulde navn. Beskriv personens talenter og potentiale.
+                    3. **Sjælstal (Soul Urge Number):** Baseret på vokalerne i navnet. Beskriv de indre ønsker og motivationer.
+
+                    Giv en letforståelig, men dybdegående forklaring for hvert tal.
+                `;
+            };
+
             const fetchNames = async (prompt) => {
                 resultsContainer.innerHTML = '';
                 errorMessage.classList.add('hidden');
@@ -715,49 +964,141 @@
 
                 try {
                     const payload = { prompt: prompt };
-                    
                     const apiUrl = "https://min-ai-backend.onrender.com/api/generate";
-                    
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
-
-                    if (!response.ok) {
-                        const errorBody = await response.text();
-                        throw new Error(`API call failed with status: ${response.status}. Body: ${errorBody}`);
-                    }
-
+                    if (!response.ok) { throw new Error(`API call failed with status: ${response.status}`); }
                     const parsedJson = await response.json();
-                    
                     if (parsedJson.navneforslag) {
                         displayResults(parsedJson.navneforslag);
                         regenerateContainer.classList.remove('hidden');
-                    } else {
-                        console.error("Unexpected API response structure:", parsedJson);
-                        throw new Error(translations[currentLang].apiError);
-                    }
-
+                    } else { throw new Error(translations[currentLang].apiError); }
                 } catch (error) {
                     console.error('Error generating names:', error);
-                    errorMessage.textContent = `An error occurred: ${error.message}. Please check the console for details and try again.`;
+                    errorMessage.textContent = error.message;
                     errorMessage.classList.remove('hidden');
                 } finally {
                     loader.classList.add('hidden');
                 }
             };
+
+            const fetchMeaning = async (prompt) => {
+                meaningResults.innerHTML = '';
+                meaningErrorMessage.classList.add('hidden');
+                meaningLoader.classList.remove('hidden');
+
+                try {
+                    const payload = {
+                        contents: [{ role: "user", parts: [{ text: prompt }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "historisk_betydning": { "type": "STRING" },
+                                    "numerologisk_analyse": { "type": "STRING" },
+                                    "astrologisk_forbindelse": { "type": "STRING" }
+                                },
+                                required: ["historisk_betydning", "numerologisk_analyse", "astrologisk_forbindelse"]
+                            }
+                        }
+                    };
+                    const apiKey = ""; // Your API key here if needed
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) { throw new Error(`API call failed with status: ${response.status}`); }
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0].content.parts[0].text) {
+                        const jsonText = result.candidates[0].content.parts[0].text;
+                        const parsedJson = JSON.parse(jsonText);
+                        displayMeaning(parsedJson);
+                    } else { throw new Error(translations[currentLang].apiError); }
+                } catch (error) {
+                    console.error('Error fetching meaning:', error);
+                    meaningErrorMessage.textContent = error.message;
+                    meaningErrorMessage.classList.remove('hidden');
+                } finally {
+                    meaningLoader.classList.add('hidden');
+                }
+            };
+
+            const fetchNumerology = async (prompt) => {
+                numerologyResults.innerHTML = '';
+                numerologyErrorMessage.classList.add('hidden');
+                numerologyLoader.classList.remove('hidden');
+
+                try {
+                    const payload = {
+                        contents: [{ role: "user", parts: [{ text: prompt }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "livsvejsnummer": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } },
+                                    "skaebnetal": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } },
+                                    "sjaelstal": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } }
+                                },
+                                required: ["livsvejsnummer", "skaebnetal", "sjaelstal"]
+                            }
+                        }
+                    };
+                    const apiKey = ""; // Your API key here if needed
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) { throw new Error(`API call failed with status: ${response.status}`); }
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0].content.parts[0].text) {
+                        const jsonText = result.candidates[0].content.parts[0].text;
+                        const parsedJson = JSON.parse(jsonText);
+                        displayNumerology(parsedJson);
+                    } else { throw new Error(translations[currentLang].apiError); }
+                } catch (error) {
+                    console.error('Error fetching numerology:', error);
+                    numerologyErrorMessage.textContent = error.message;
+                    numerologyErrorMessage.classList.remove('hidden');
+                } finally {
+                    numerologyLoader.classList.add('hidden');
+                }
+            };
             
             nameForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const prompt = getPrompt();
+                const prompt = getPromptForGenerator();
                 await fetchNames(prompt);
             });
 
             regenerateButton.addEventListener('click', async () => {
-                const regenerationPrompt = getPrompt(true);
+                const regenerationPrompt = getPromptForGenerator(true);
                 await fetchNames(regenerationPrompt);
             });
+
+            meaningForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const nameInput = document.getElementById('name-input').value;
+                const prompt = getPromptForMeaning(nameInput);
+                await fetchMeaning(prompt);
+            });
+            
+            numerologyForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const fullName = document.getElementById('full-name-input').value;
+                const birthDate = document.getElementById('birth-date-input').value;
+                const prompt = getPromptForNumerology(fullName, birthDate);
+                await fetchNumerology(prompt);
+            });
+
 
             function displayResults(suggestions) {
                 if (!suggestions || suggestions.length === 0) {
@@ -809,6 +1150,52 @@
                 });
 
                 setTimeout(() => {
+                    document.querySelectorAll('.animate-fade-in').forEach(el => el.style.opacity = 1);
+                }, 100);
+            }
+
+            function displayMeaning(data) {
+                const t = translations[currentLang];
+                meaningResults.innerHTML = `
+                    <div class="card animate-fade-in border-t-4 border-amber-400">
+                        <div class="border-b border-gray-700 pb-4 mb-4">
+                            <h3 class="text-xl font-bold">${t.historicalMeaning}</h3>
+                            <p class="mt-2">${data.historisk_betydning}</p>
+                        </div>
+                        <div class="border-b border-gray-700 pb-4 mb-4">
+                            <h3 class="text-xl font-bold">${t.numerologicalAnalysis}</h3>
+                            <p class="mt-2">${data.numerologisk_analyse}</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">${t.astrologicalConnection}</h3>
+                            <p class="mt-2">${data.astrologisk_forbindelse}</p>
+                        </div>
+                    </div>
+                `;
+                 setTimeout(() => {
+                    document.querySelectorAll('.animate-fade-in').forEach(el => el.style.opacity = 1);
+                }, 100);
+            }
+
+             function displayNumerology(data) {
+                const t = translations[currentLang];
+                numerologyResults.innerHTML = `
+                    <div class="card animate-fade-in border-t-4 border-purple-400">
+                        <div class="border-b border-gray-700 pb-4 mb-4">
+                            <h3 class="text-xl font-bold">${t.lifePathNumber}: ${data.livsvejsnummer.tal}</h3>
+                            <p class="mt-2">${data.livsvejsnummer.beskrivelse}</p>
+                        </div>
+                        <div class="border-b border-gray-700 pb-4 mb-4">
+                            <h3 class="text-xl font-bold">${t.destinyNumber}: ${data.skaebnetal.tal}</h3>
+                            <p class="mt-2">${data.skaebnetal.beskrivelse}</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">${t.soulUrgeNumber}: ${data.sjaelstal.tal}</h3>
+                            <p class="mt-2">${data.sjaelstal.beskrivelse}</p>
+                        </div>
+                    </div>
+                `;
+                 setTimeout(() => {
                     document.querySelectorAll('.animate-fade-in').forEach(el => el.style.opacity = 1);
                 }, 100);
             }
@@ -874,9 +1261,49 @@
                 });
             });
 
+            // Navigation Logic
+            navGenerator.addEventListener('click', () => {
+                pageGenerator.classList.remove('hidden');
+                pageMeaning.classList.add('hidden');
+                pageNumerology.classList.add('hidden');
+                navGenerator.classList.add('active');
+                navMeaning.classList.remove('active');
+                navNumerology.classList.remove('active');
+                body.classList.remove('theme-meaning', 'theme-numerology');
+                const currentGender = document.querySelector('input[name="gender"]:checked').value;
+                updateTheme(currentGender);
+            });
+
+             navMeaning.addEventListener('click', () => {
+                pageGenerator.classList.add('hidden');
+                pageMeaning.classList.remove('hidden');
+                pageNumerology.classList.add('hidden');
+                navGenerator.classList.remove('active');
+                navMeaning.classList.add('active');
+                navNumerology.classList.remove('active');
+                body.classList.remove('theme-numerology');
+                body.classList.add('theme-meaning');
+                body.style.backgroundImage = '';
+            });
+            
+            navNumerology.addEventListener('click', () => {
+                pageGenerator.classList.add('hidden');
+                pageMeaning.classList.add('hidden');
+                pageNumerology.classList.remove('hidden');
+                navGenerator.classList.remove('active');
+                navMeaning.classList.remove('active');
+                navNumerology.classList.add('active');
+                body.classList.remove('theme-meaning');
+                body.classList.add('theme-numerology');
+                body.style.backgroundImage = '';
+            });
+
             // Initialize with default language and theme
             updateLanguage('da');
             updateTheme('Dreng'); // Default to boy theme
     </script>
+</body>
+</html>
+
 </body>
 </html>
