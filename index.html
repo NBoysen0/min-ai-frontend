@@ -1059,7 +1059,7 @@
                     <p>Utilizamos servicios de terceros que tienen sus propias políticas de privacidad:</p>
                     <ul class="list-disc list-inside space-y-2">
                         <li><strong>Google AdSense:</strong> Muestra anuncios en el sitio. Google puede usar cookies para mostrarte anuncios relevantes. Puedes leer más en la <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Política de Anuncios de Google</a>.</li>
-                        <li><strong>Servicio de IA:</strong> La información anonimizada del formulario se envía a un servicio de IA para generar nombres. Estos datos no se utilizan para identificarte.</li>
+                        <li><strong>AI Service:</strong> La información anonimizada del formulario se envía a un servicio de IA para generar nombres. Estos datos no se utilizan para identificarte.</li>
                     </ul>`
                 }
             };
@@ -1295,18 +1295,24 @@
                             responseSchema: schema
                         }
                     };
-                    const apiKey = ""; // Your API key here if needed
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    const apiUrl = "https://min-ai-backend.onrender.com/api/generate";
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
-                    if (!response.ok) { throw new Error(`API call failed with status: ${response.status}`); }
+                    if (!response.ok) { 
+                        const errorText = await response.text();
+                        throw new Error(`API call failed with status: ${response.status}. Response: ${errorText}`); 
+                    }
                     const result = await response.json();
                     if (result.candidates && result.candidates[0].content.parts[0].text) {
                         return JSON.parse(result.candidates[0].content.parts[0].text);
-                    } else { throw new Error(translations[currentLang].apiError); }
+                    } else if (result.navneforslag || result.historisk_betydning || result.livsvejsnummer || result.rangering) {
+                        // Handle direct JSON response from backend
+                        return result;
+                    }
+                    else { throw new Error(translations[currentLang].apiError); }
                 } catch (error) {
                     console.error('API Error:', error);
                     throw error;
@@ -1319,27 +1325,28 @@
                 errorMessage.classList.add('hidden');
                 resultsContainer.innerHTML = '';
                 const prompt = getPromptForGenerator();
-                try {
-                    const data = await fetchApi(prompt, {
-                        type: "OBJECT",
-                        properties: {
-                            "navneforslag": {
-                                type: "ARRAY",
-                                items: {
-                                    type: "OBJECT",
-                                    properties: {
-                                        "navn": { "type": "STRING" },
-                                        "mellemnavn": { "type": "STRING" },
-                                        "efternavn": { "type": "STRING" },
-                                        "oprindelse_betydning": { "type": "STRING" },
-                                        "personlig_begrundelse": { "type": "STRING" }
-                                    },
-                                    required: ["navn", "oprindelse_betydning", "personlig_begrundelse"]
-                                }
+                const schema = {
+                    type: "OBJECT",
+                    properties: {
+                        "navneforslag": {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "navn": { "type": "STRING" },
+                                    "mellemnavn": { "type": "STRING" },
+                                    "efternavn": { "type": "STRING" },
+                                    "oprindelse_betydning": { "type": "STRING" },
+                                    "personlig_begrundelse": { "type": "STRING" }
+                                },
+                                required: ["navn", "oprindelse_betydning", "personlig_begrundelse"]
                             }
-                        },
-                        required: ["navneforslag"]
-                    });
+                        }
+                    },
+                    required: ["navneforslag"]
+                };
+                try {
+                    const data = await fetchApi(prompt, schema);
                     displayResults(data.navneforslag);
                     regenerateContainer.classList.remove('hidden');
                 } catch (error) {
