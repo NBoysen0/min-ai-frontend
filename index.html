@@ -1286,15 +1286,9 @@
                 `;
             };
 
-            const fetchApi = async (prompt, schema) => {
+            const fetchApi = async (prompt) => {
                 try {
-                    const payload = {
-                        contents: [{ role: "user", parts: [{ text: prompt }] }],
-                        generationConfig: {
-                            responseMimeType: "application/json",
-                            responseSchema: schema
-                        }
-                    };
+                    const payload = { prompt };
                     const apiUrl = "https://min-ai-backend.onrender.com/api/generate";
                     const response = await fetch(apiUrl, {
                         method: 'POST',
@@ -1305,14 +1299,7 @@
                         const errorText = await response.text();
                         throw new Error(`API call failed with status: ${response.status}. Response: ${errorText}`); 
                     }
-                    const result = await response.json();
-                    if (result.candidates && result.candidates[0].content.parts[0].text) {
-                        return JSON.parse(result.candidates[0].content.parts[0].text);
-                    } else if (result) {
-                        // Handle direct JSON response from backend
-                        return result;
-                    }
-                    else { throw new Error(translations[currentLang].apiError); }
+                    return await response.json();
                 } catch (error) {
                     console.error('API Error:', error);
                     throw error;
@@ -1325,28 +1312,8 @@
                 errorMessage.classList.add('hidden');
                 resultsContainer.innerHTML = '';
                 const prompt = getPromptForGenerator();
-                const schema = {
-                    type: "OBJECT",
-                    properties: {
-                        "navneforslag": {
-                            type: "ARRAY",
-                            items: {
-                                type: "OBJECT",
-                                properties: {
-                                    "navn": { "type": "STRING" },
-                                    "mellemnavn": { "type": "STRING" },
-                                    "efternavn": { "type": "STRING" },
-                                    "oprindelse_betydning": { "type": "STRING" },
-                                    "personlig_begrundelse": { "type": "STRING" }
-                                },
-                                required: ["navn", "oprindelse_betydning", "personlig_begrundelse"]
-                            }
-                        }
-                    },
-                    required: ["navneforslag"]
-                };
                 try {
-                    const data = await fetchApi(prompt, schema);
+                    const data = await fetchApi(prompt);
                     displayResults(data.navneforslag);
                     regenerateContainer.classList.remove('hidden');
                 } catch (error) {
@@ -1366,17 +1333,8 @@
                 meaningResults.innerHTML = '';
                 const nameInput = document.getElementById('name-input-meaning').value;
                 const prompt = getPromptForMeaning(nameInput);
-                const schema = {
-                    type: "OBJECT",
-                    properties: {
-                        "historisk_betydning": { "type": "STRING" },
-                        "numerologisk_analyse": { "type": "STRING" },
-                        "astrologisk_forbindelse": { "type": "STRING" }
-                    },
-                    required: ["historisk_betydning", "numerologisk_analyse", "astrologisk_forbindelse"]
-                };
                 try {
-                    const data = await fetchApi(prompt, schema);
+                    const data = await fetchApi(prompt);
                     displayMeaning(data);
                 } catch (error) {
                     meaningErrorMessage.textContent = error.message;
@@ -1394,17 +1352,8 @@
                 const fullName = document.getElementById('full-name-input').value;
                 const birthDate = document.getElementById('birth-date-input').value;
                 const prompt = getPromptForNumerology(fullName, birthDate);
-                const schema = {
-                    type: "OBJECT",
-                    properties: {
-                        "livsvejsnummer": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } },
-                        "skaebnetal": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } },
-                        "sjaelstal": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } }
-                    },
-                    required: ["livsvejsnummer", "skaebnetal", "sjaelstal"]
-                };
                 try {
-                    const data = await fetchApi(prompt, schema);
+                    const data = await fetchApi(prompt);
                     displayNumerology(data);
                 } catch (error) {
                     numerologyErrorMessage.textContent = error.message;
@@ -1422,16 +1371,8 @@
                 const name = document.getElementById('popularity-name-input').value;
                 const country = document.getElementById('country-select').value;
                 const prompt = getPromptForPopularity(name, country);
-                const schema = {
-                    type: "OBJECT",
-                    properties: {
-                        "rangering": { "type": "STRING" },
-                        "trend": { "type": "STRING" }
-                    },
-                    required: ["rangering", "trend"]
-                };
                  try {
-                    const data = await fetchApi(prompt, schema);
+                    const data = await fetchApi(prompt);
                     displayPopularity(data, name, country);
                 } catch (error) {
                     popularityErrorMessage.textContent = error.message;
