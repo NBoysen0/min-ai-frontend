@@ -1308,7 +1308,7 @@
                     const result = await response.json();
                     if (result.candidates && result.candidates[0].content.parts[0].text) {
                         return JSON.parse(result.candidates[0].content.parts[0].text);
-                    } else if (result.navneforslag || result.historisk_betydning || result.livsvejsnummer || result.rangering) {
+                    } else if (result) {
                         // Handle direct JSON response from backend
                         return result;
                     }
