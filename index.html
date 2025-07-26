@@ -879,7 +879,7 @@
                     </div>`,
                  numerologyGuideTitle: "Leitfaden zur Bedeutung der Zahlen",
                 numerologyGuideContent: `
-                    <p>Jede Zahl hat eine einzigartige Schwingung und Bedeutung. Hier ist eine kurze Übersicht:</p>
+                    <p>Hvert tal har en unik vibration og betydning. Her er en kort oversigt:</p>
                     <div class="space-y-3 mt-4">
                         <p><strong>1:</strong> Führung, Unabhängigkeit, Innovation, Neuanfänge.</p>
                         <p><strong>2:</strong> Zusammenarbeit, Diplomatie, Sensibilität, Gleichgewicht.</p>
@@ -1038,7 +1038,7 @@
                         <p><strong>1:</strong> Liderazgo, independencia, innovación, nuevos comienzos.</p>
                         <p><strong>2:</strong> Cooperación, diplomacia, sensibilidad, equilibrio.</p>
                         <p><strong>3:</strong> Creatividad, comunicación, optimismo, autoexpresión.</p>
-                        <p><strong>4:</strong> Estabilidad, trabajo duro, disciplina, fundamento.</p>
+                        <p><strong>4:</strong> Stabilitet, trabajo duro, disciplina, fundamento.</p>
                         <p><strong>5:</strong> Libertad, aventura, cambio, versatilidad.</p>
                         <p><strong>6:</strong> Armonía, responsabilidad, cuidado, familia.</p>
                         <p><strong>7:</strong> Espiritualidad, análisis, sabiduría, introspección.</p>
@@ -1052,14 +1052,14 @@
                 privacyTitle: "Política de Privacidad",
                 privacyContent: `
                     <h4 class="font-semibold text-lg mb-2">Tu Privacidad es Importante</h4>
-                    <p>No guardamos ninguna de la información que introduces en el formulario de esta página. Todos los datos (como nombres, fechas y otras opciones) se utilizan únicamente para generar sugerencias de nombres en el momento en que haces clic en el botón.</p>
+                    <p>No guardamos ninguna de la información que introduces en el formulario de esta página. Todos los datos (como nombres, fechas y otras opciones) se utilizan únicamente para generar sugerencias de nombres en el momento que haces clic en el botón.</p>
                     <p>Cuando sales o actualizas la página, toda la información introducida desaparece. No tenemos una base de datos y no rastreamos tus elecciones.</p>
                     <hr class="my-4">
-                    <h4 class="font-semibold text-lg mb-2">Servicios de Terceros</h4>
-                    <p>Utilizamos servicios de terceros que tienen sus propias políticas de privacidad:</p>
+                    <h4 class="font-semibold text-lg mb-2">Tredjepartstjenester</h4>
+                    <p>Vi bruger tredjepartstjenester, som har deres egne privatlivspolitikker:</p>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><strong>Google AdSense:</strong> Muestra anuncios en el sitio. Google puede usar cookies para mostrarte anuncios relevantes. Puedes leer más en la <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Política de Anuncios de Google</a>.</li>
-                        <li><strong>AI Service:</strong> La información anonimizada del formulario se envía a un servicio de IA para generar nombres. Estos datos no se utilizan para identificarte.</li>
+                        <li><strong>Google AdSense:</strong> Viser annoncer på siden. Google kan bruge cookies til at vise dig relevante annoncer. Du kan læse mere i <a href="https://policies.google.com/technologies/ads" target="_blank" class="underline text-indigo-600">Googles annoncepolitik</a>.</li>
+                        <li><strong>AI Service:</strong> De anonymiserede oplysninger fra formularen sendes til en AI-tjeneste for at generere navne. Disse data bruges ikke til at identificere dig.</li>
                     </ul>`
                 }
             };
@@ -1286,9 +1286,9 @@
                 `;
             };
 
-            const fetchApi = async (prompt) => {
+            const fetchApi = async (prompt, schema) => {
                 try {
-                    const payload = { prompt };
+                    const payload = { prompt, schema };
                     const apiUrl = "https://min-ai-backend.onrender.com/api/generate";
                     const response = await fetch(apiUrl, {
                         method: 'POST',
@@ -1312,8 +1312,28 @@
                 errorMessage.classList.add('hidden');
                 resultsContainer.innerHTML = '';
                 const prompt = getPromptForGenerator();
+                const schema = {
+                    type: "OBJECT",
+                    properties: {
+                        "navneforslag": {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "navn": { "type": "STRING" },
+                                    "mellemnavn": { "type": "STRING" },
+                                    "efternavn": { "type": "STRING" },
+                                    "oprindelse_betydning": { "type": "STRING" },
+                                    "personlig_begrundelse": { "type": "STRING" }
+                                },
+                                required: ["navn", "oprindelse_betydning", "personlig_begrundelse"]
+                            }
+                        }
+                    },
+                    required: ["navneforslag"]
+                };
                 try {
-                    const data = await fetchApi(prompt);
+                    const data = await fetchApi(prompt, schema);
                     displayResults(data.navneforslag);
                     regenerateContainer.classList.remove('hidden');
                 } catch (error) {
@@ -1333,8 +1353,17 @@
                 meaningResults.innerHTML = '';
                 const nameInput = document.getElementById('name-input-meaning').value;
                 const prompt = getPromptForMeaning(nameInput);
+                const schema = {
+                    type: "OBJECT",
+                    properties: {
+                        "historisk_betydning": { "type": "STRING" },
+                        "numerologisk_analyse": { "type": "STRING" },
+                        "astrologisk_forbindelse": { "type": "STRING" }
+                    },
+                    required: ["historisk_betydning", "numerologisk_analyse", "astrologisk_forbindelse"]
+                };
                 try {
-                    const data = await fetchApi(prompt);
+                    const data = await fetchApi(prompt, schema);
                     displayMeaning(data);
                 } catch (error) {
                     meaningErrorMessage.textContent = error.message;
@@ -1352,8 +1381,17 @@
                 const fullName = document.getElementById('full-name-input').value;
                 const birthDate = document.getElementById('birth-date-input').value;
                 const prompt = getPromptForNumerology(fullName, birthDate);
+                const schema = {
+                    type: "OBJECT",
+                    properties: {
+                        "livsvejsnummer": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } },
+                        "skaebnetal": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } },
+                        "sjaelstal": { type: "OBJECT", properties: { "tal": {"type": "STRING"}, "beskrivelse": {"type": "STRING"} } }
+                    },
+                    required: ["livsvejsnummer", "skaebnetal", "sjaelstal"]
+                };
                 try {
-                    const data = await fetchApi(prompt);
+                    const data = await fetchApi(prompt, schema);
                     displayNumerology(data);
                 } catch (error) {
                     numerologyErrorMessage.textContent = error.message;
@@ -1371,8 +1409,16 @@
                 const name = document.getElementById('popularity-name-input').value;
                 const country = document.getElementById('country-select').value;
                 const prompt = getPromptForPopularity(name, country);
+                const schema = {
+                    type: "OBJECT",
+                    properties: {
+                        "rangering": { "type": "STRING" },
+                        "trend": { "type": "STRING" }
+                    },
+                    required: ["rangering", "trend"]
+                };
                  try {
-                    const data = await fetchApi(prompt);
+                    const data = await fetchApi(prompt, schema);
                     displayPopularity(data, name, country);
                 } catch (error) {
                     popularityErrorMessage.textContent = error.message;
@@ -1439,6 +1485,11 @@
 
             function displayMeaning(data) {
                 const t = translations[currentLang];
+                if(!data || !data.historisk_betydning) {
+                    meaningErrorMessage.textContent = translations[currentLang].noResultsError;
+                    meaningErrorMessage.classList.remove('hidden');
+                    return;
+                }
                 meaningResults.innerHTML = `
                     <div class="card animate-fade-in border-t-4 border-amber-400">
                         <div class="border-b border-gray-700 pb-4 mb-4">
@@ -1462,6 +1513,11 @@
 
              function displayNumerology(data) {
                 const t = translations[currentLang];
+                 if(!data || !data.livsvejsnummer || !data.livsvejsnummer.tal) {
+                    numerologyErrorMessage.textContent = translations[currentLang].noResultsError;
+                    numerologyErrorMessage.classList.remove('hidden');
+                    return;
+                }
                 numerologyResults.innerHTML = `
                     <div class="card animate-fade-in border-t-4 border-purple-400">
                         <div class="border-b border-gray-700 pb-4 mb-4">
@@ -1485,6 +1541,11 @@
             
             function displayPopularity(data, name, country) {
                 const t = translations[currentLang];
+                if(!data || !data.rangering) {
+                    popularityErrorMessage.textContent = translations[currentLang].noResultsError;
+                    popularityErrorMessage.classList.remove('hidden');
+                    return;
+                }
                 const countryName = t.countries[country] || country;
                 popularityResults.innerHTML = `
                     <div class="card animate-fade-in border-t-4 border-teal-400">
@@ -1650,5 +1711,8 @@
             updateLanguage('da');
             updateTheme('Dreng'); // Default to boy theme
     </script>
+</body>
+</html>
+
 </body>
 </html>
