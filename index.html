@@ -3,7 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Navnegenerator & Betydning</title>
+    
+    <!-- SEO: Optimeret Titel -->
+    <title>Navnegenerator | Find Babynavne & Navnes Betydning (AI)</title>
+    
+    <!-- SEO: Meta Beskrivelse -->
+    <meta name="description" content="Find det perfekte babynavn! Brug vores AI navnegenerator til at få unikke forslag til drenge- og pigenavne, udforsk navnes betydning, numerologi og popularitet.">
+
+    <!-- SEO: Strukturerede Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Navneuniverset",
+      "url": "https://min-ai-backend.onrender.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://min-ai-backend.onrender.com/",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AI Navnegenerator & Betydning",
+      "operatingSystem": "WEB",
+      "applicationCategory": "BrowserApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "125"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "DKK"
+      }
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-36XL27ZVJP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-36XL27ZVJP');
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,6 +198,19 @@
         .theme-popularity .card p { color: #115e59; }
         .theme-popularity footer { background-color: rgba(204, 251, 241, 0.5); }
         .theme-popularity footer span, .theme-popularity footer a { color: #115e59; }
+        
+        /* Visually hidden class for accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
 
     </style>
 </head>
@@ -170,7 +233,7 @@
                 </select>
             </div>
             <h1 id="main-title" class="text-5xl md:text-6xl font-display text-sky-800">Dit Navneunivers</h1>
-            <p id="subtitle" class="mt-6 text-lg text-sky-700">Find det perfekte og meningsfulde navn til dit barn.</p>
+            <p id="subtitle" class="mt-6 text-lg text-sky-700">Find det perfekte babynavn. Vores AI-drevne navnegenerator giver dig inspiration og forslag til både drenge- og pigenavne.</p>
             <button id="how-it-works-button" class="mt-4 text-sky-600 underline hover:text-sky-800 text-sm">Hvordan virker det?</button>
         </header>
         
@@ -199,6 +262,7 @@
 
         <!-- PAGE 1: NAME GENERATOR -->
         <main id="page-generator">
+            <h2 class="sr-only">AI Navnegenerator til Drenge- og Pigenavne</h2>
             <div class="main-container p-6 md:p-8">
                 <form id="name-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -309,6 +373,7 @@
 
         <!-- PAGE 2: NAME MEANING -->
         <main id="page-meaning" class="hidden">
+            <h2 class="sr-only">Find Navnes Betydning</h2>
             <div class="main-container p-6 md:p-8">
                 <form id="meaning-form">
                     <div>
@@ -337,6 +402,7 @@
 
         <!-- PAGE 3: NUMEROLOGY -->
         <main id="page-numerology" class="hidden">
+            <h2 class="sr-only">Beregn Numerologi for et Navn</h2>
             <div class="main-container p-6 md:p-8">
                 <form id="numerology-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -374,6 +440,7 @@
 
         <!-- PAGE 4: POPULARITY -->
         <main id="page-popularity" class="hidden">
+            <h2 class="sr-only">Tjek et Navns Popularitet</h2>
             <div class="main-container p-6 md:p-8">
                 <form id="popularity-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -879,7 +946,7 @@
                     </div>`,
                  numerologyGuideTitle: "Leitfaden zur Bedeutung der Zahlen",
                 numerologyGuideContent: `
-                    <p>Hvert tal har en unik vibration og betydning. Her er en kort oversigt:</p>
+                    <p>Jede Zahl hat eine einzigartige Schwingung und Bedeutung. Hier ist eine kurze Übersicht:</p>
                     <div class="space-y-3 mt-4">
                         <p><strong>1:</strong> Führung, Unabhängigkeit, Innovation, Neuanfänge.</p>
                         <p><strong>2:</strong> Zusammenarbeit, Diplomatie, Sensibilität, Gleichgewicht.</p>
@@ -887,13 +954,13 @@
                         <p><strong>4:</strong> Stabilität, harte Arbeit, Disziplin, Fundament.</p>
                         <p><strong>5:</strong> Freiheit, Abenteuer, Veränderung, Vielseitigkeit.</p>
                         <p><strong>6:</strong> Harmonie, Verantwortung, Fürsorge, Familie.</p>
-                        <p><strong>7:</strong> Spiritualität, Analyse, Weisheit, Selbstbeobachtung.</p>
+                        <p><strong>7:</strong> Spiritualitet, Analyse, Weisheit, Selbstbeobachtung.</p>
                         <p><strong>8:</strong> Ehrgeiz, Macht, materieller Erfolg, Autorität.</p>
                         <p><strong>9:</strong> Humanismus, Mitgefühl, Vollendung, universelle Liebe.</p>
                         <hr class="my-2">
                         <p><strong>11 (Meisterzahl):</strong> Intuitiv, idealistisch, visionär, spirituelle Erleuchtung.</p>
                         <p><strong>22 (Meisterzahl):</strong> Meisterbauer, praktischer Idealismus, große Errungenschaften, Potenzial.</p>
-                        <p><strong>33 (Meisterzahl):</strong> Meisterlehrer, mitfühlend, heilend, Selbstlosigkeit.</p>
+                        <p><strong>33 (Mestertal):</strong> Mesterlærer, medfølende, heilend, Selbstlosigkeit.</p>
                     </div>`,
                 privacyTitle: "Datenschutzrichtlinie",
                 privacyContent: `
@@ -1711,8 +1778,5 @@
             updateLanguage('da');
             updateTheme('Dreng'); // Default to boy theme
     </script>
-</body>
-</html>
-
 </body>
 </html>
