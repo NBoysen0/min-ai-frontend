@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.navneuniverset.dk/">
+
+  <!-- Hovedsiden (Navnegenerator) -->
+  <url>
+    <loc>https://www.dit-domaenenavn.dk/</loc>
+    <lastmod>2024-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Underside: Navnes Betydning -->
+  <url>
+    <loc>https://www.dit-domaenenavn.dk/#meaning</loc>
+    <lastmod>2024-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Underside: Numerologi -->
+  <url>
+    <loc>https://www.dit-domaenenavn.dk/#numerology</loc>
+    <lastmod>2024-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Underside: Popularitet -->
+  <url>
+    <loc>https://www.dit-domaenenavn.dk/#popularity</loc>
+    <lastmod>2024-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
