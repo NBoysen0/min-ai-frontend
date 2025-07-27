@@ -3,7 +3,7 @@
 
   <!-- Hovedsiden (Navnegenerator) -->
   <url>
-    <loc>https://www.dit-domaenenavn.dk/</loc>
+    <loc>https://www.navneuniverset.dk/</loc>
     <lastmod>2024-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- Underside: Navnes Betydning -->
   <url>
-    <loc>https://www.dit-domaenenavn.dk/#meaning</loc>
+    <loc>https://www.navneuniverset.dk/#meaning</loc>
     <lastmod>2024-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -19,7 +19,7 @@
 
   <!-- Underside: Numerologi -->
   <url>
-    <loc>https://www.dit-domaenenavn.dk/#numerology</loc>
+    <loc>https://www.navneuniverset.dk/#numerology</loc>
     <lastmod>2024-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -27,7 +27,7 @@
 
   <!-- Underside: Popularitet -->
   <url>
-    <loc>https://www.dit-domaenenavn.dk/#popularity</loc>
+    <loc>https://www.navneuniverset.dk/#popularity</loc>
     <lastmod>2024-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
